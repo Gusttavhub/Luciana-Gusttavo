@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gusttavo & Luciana | Nosso Casamento</title>
+    <style>
+        /* Variáveis de Cores - Estilo Minimalista */
+        :root {
+            --branco-puro: #ffffff;
+            --cinza-fundo: #fafafa;
+            --texto-principal: #2c2c2c;
+            --texto-secundario: #888888;
+            --fonte-titulos: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --fonte-textos: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Reset e Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--fonte-textos);
+            background-color: var(--branco-puro);
+            color: var(--texto-principal);
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Seções */
+        section {
+            padding: 100px 20px;
+        }
+
+        .fundo-cinza {
+            background-color: var(--cinza-fundo);
+        }
+
+        h2 {
+            font-family: var(--fonte-titulos);
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            color: var(--texto-principal);
+        }
+
+        /* Capa (Hero Section) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-family: var(--fonte-titulos);
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 200;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .hero .data {
+            font-size: 1.2rem;
+            color: var(--texto-secundario);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+        }
+
+        /* Contagem Regressiva */
+        .contador {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .bloco-tempo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+
+        .numero {
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+
+        .legenda {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--texto-secundario);
+            margin-top: 5px;
+        }
+
+        /* Formulário RSVP */
+        #form-rsvp input {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: var(--fonte-textos);
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #form-rsvp input:focus {
+            border-color: var(--texto-principal);
+        }
+
+        #btn-confirmar {
+            padding: 15px;
+            background-color: var(--texto-principal);
+            color: var(--branco-puro);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        #btn-confirmar:hover:not(:disabled) {
+            background-color: #555;
+        }
+
+        #btn-confirmar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #mensagem-feedback {
+            display: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===================== CAPA ===================== -->
+    <section class="hero">
+        <h1>Gusttavo & Luciana</h1>
+        <p class="data">15 de Agosto de 2026 • 18:00</p>
+        <div class="contador" id="contador"></div>
+    </section>
+
+    <!-- ===================== NOSSA HISTÓRIA ===================== -->
+    <section id="historia" class="fundo-cinza">
+        <h2>Nossa História</h2>
+        <p style="color: var(--texto-secundario); max-width: 600px; margin: 0 auto;">
+            Aqui vamos colocar um texto breve sobre vocês e, futuramente, uma galeria de fotos clean.
+        </p>
+    </section>
+
+    <!-- ===================== O EVENTO ===================== -->
+    <section id="evento">
+        <h2>O Evento</h2>
+        <p style="color: var(--texto-secundario);">Detalhes do local, cerimônia e mapa.</p>
+    </section>
+
+    <!-- ===================== CONFIRMAÇÃO DE PRESENÇA ===================== -->
+    <section id="rsvp" class="fundo-cinza">
+        <h2>Confirme sua Presença</h2>
+        <p style="color: var(--texto-secundario); margin-bottom: 30px;">
+            Por favor, confirme sua presença até o dia 15 de Julho de 2026.
+        </p>
+
+        <form id="form-rsvp" style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+            <input type="text" id="nomeConvidado" placeholder="Seu Nome Completo" required>
+            <input type="number" id="qtdAcompanhantes" placeholder="Número de Acompanhantes (ex: 2)" min="0" required>
+            <button type="submit" id="btn-confirmar">Confirmar Presença</button>
+            <p id="mensagem-feedback"></p>
+        </form>
+    </section>
+
+    <!-- ===================== SCRIPT: CONTAGEM REGRESSIVA ===================== -->
+    <script>
+        const dataCasamento = new Date("August 15, 2026 18:00:00").getTime();
+
+        const atualizarContador = setInterval(function () {
+            const agora = new Date().getTime();
+            const distancia = dataCasamento - agora;
+
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            document.getElementById("contador").innerHTML = `
+                <div class="bloco-tempo">
+                    <span class="numero">${dias}</span>
+                    <span class="legenda">Dias</span>
+                </div>
+                <div class="bloco-tempo">
+                    <span class="numero">${horas.toString().padStart(2, '0')}</span>
+                    <span class="legenda">Horas</span>
+                </div>
+                <div class="bloco-tempo">
+                    <span class="numero">${minutos.toString().padStart(2, '0')}</span>
+                    <span class="legenda">Min</span>
+                </div>
+                <div class="bloco-tempo">
+                    <span class="numero">${segundos.toString().padStart(2, '0')}</span>
+                    <span class="legenda">Seg</span>
+                </div>
+            `;
+
+            if (distancia < 0) {
+                clearInterval(atualizarContador);
+                document.getElementById("contador").innerHTML = "<p class='numero'>Chegou o grande dia!</p>";
+            }
+        }, 1000);
+    </script>
+
+    <!-- ===================== SCRIPT: FIREBASE + RSVP ===================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIPvSWjCDMdyZP8WaSuBMJBL2Wh1m441I",
+            authDomain: "casamento-53d96.firebaseapp.com",
+            projectId: "casamento-53d96",
+            storageBucket: "casamento-53d96.firebasestorage.app",
+            messagingSenderId: "657466584523",
+            appId: "1:657466584523:web:96de701bf571e95a64da4e",
+            measurementId: "G-PPNHTSERNL"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        document.getElementById('form-rsvp').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('btn-confirmar');
+            const feedback = document.getElementById('mensagem-feedback');
+            const nome = document.getElementById('nomeConvidado').value.trim();
+            const acompanhantes = parseInt(document.getElementById('qtdAcompanhantes').value, 10);
+
+            try {
+                btn.innerText = "Enviando...";
+                btn.disabled = true;
+
+                await addDoc(collection(db, "convidados"), {
+                    nome: nome,
+                    acompanhantes: acompanhantes,
+                    dataConfirmacao: new Date().toISOString()
+                });
+
+                feedback.style.display = "block";
+                feedback.style.color = "green";
+                feedback.innerText = "Presença confirmada com sucesso! Muito obrigado.";
+                document.getElementById('form-rsvp').reset();
+
+            } catch (e) {
+                console.error("Erro ao adicionar documento: ", e);
+                feedback.style.display = "block";
+                feedback.style.color = "red";
+                feedback.innerText = "Ocorreu um erro ao confirmar. Tente novamente.";
+            } finally {
+                btn.innerText = "Confirmar Presença";
+                btn.disabled = false;
+            }
+        });
+    </script>
+
+</body>
+</html>
