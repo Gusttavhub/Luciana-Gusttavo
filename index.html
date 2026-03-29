@@ -56,6 +56,59 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Mosaico de Fotos */
+        .mosaic-bg {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .mosaic-bg {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+            }
+        }
+
+        .mosaic-cell {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mosaic-cell img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .mosaic-cell img.visivel {
+            opacity: 1;
+        }
+
+        .mosaic-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.82);
+            z-index: 1;
+        }
+
+        .hero-conteudo {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .hero h1 {
@@ -145,23 +198,101 @@
             font-weight: bold;
             margin-top: 10px;
         }
+
+        /* Nossa História - Texto */
+        .historia-texto {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: left;
+            color: var(--texto-secundario);
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        .historia-texto p {
+            margin-bottom: 1.4em;
+        }
+
+        .historia-texto p:last-child {
+            margin-bottom: 0;
+            font-style: italic;
+            text-align: center;
+            color: var(--texto-principal);
+            font-weight: 300;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Contador de Convidados */
+        .bloco-contador-convidados {
+            max-width: 400px;
+            margin: 0 auto 30px;
+            text-align: center;
+        }
+
+        .numero-convidados {
+            font-size: 2rem;
+            font-weight: 200;
+            color: var(--texto-principal);
+            letter-spacing: 2px;
+        }
+
+        .numero-convidados span {
+            font-size: 1rem;
+            color: var(--texto-secundario);
+            font-weight: 300;
+        }
+
+        .barra-progresso-bg {
+            width: 100%;
+            height: 1px;
+            background-color: #ddd;
+            margin-top: 10px;
+        }
+
+        .barra-progresso-fill {
+            height: 1px;
+            background-color: var(--texto-principal);
+            transition: width 0.8s ease;
+        }
+
+        .legenda-convidados {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--texto-secundario);
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
 
     <!-- ===================== CAPA ===================== -->
     <section class="hero">
-        <h1>Gusttavo & Luciana</h1>
-        <p class="data">15 de Agosto de 2026 • 18:00</p>
-        <div class="contador" id="contador"></div>
+        <!-- Mosaico de fundo (preenchido via Firebase Storage) -->
+        <div class="mosaic-bg" id="mosaic-bg"></div>
+        <div class="mosaic-overlay"></div>
+
+        <!-- Conteúdo principal -->
+        <div class="hero-conteudo">
+            <h1>Gusttavo & Luciana</h1>
+            <p class="data">15 de Agosto de 2026 • 18:00</p>
+            <div class="contador" id="contador"></div>
+        </div>
     </section>
 
     <!-- ===================== NOSSA HISTÓRIA ===================== -->
     <section id="historia" class="fundo-cinza">
         <h2>Nossa História</h2>
-        <p style="color: var(--texto-secundario); max-width: 600px; margin: 0 auto;">
-            Aqui vamos colocar um texto breve sobre vocês e, futuramente, uma galeria de fotos clean.
-        </p>
+        <div class="historia-texto">
+            <p>Nossa história começou em 2021, de um jeito simples, quase como quem não imagina o tamanho do que está por vir… mas, desde o início, havia algo diferente. Algo leve, verdadeiro e, ao mesmo tempo, profundo. Era como se, mesmo sem dizer, nossos corações já soubessem: ali estava começando algo especial.</p>
+            <p>Com o passar dos dias, fomos descobrindo muito mais do que afinidades. Nossos princípios, nossos pensamentos, nossos sonhos… tudo parecia se encontrar de forma tão natural. As pessoas ao nosso redor — amigos, família — percebiam aquilo que já sentíamos por dentro: éramos feitos para caminhar juntos.</p>
+            <p>E assim seguimos. Sem grandes pausas, sem dúvidas que nos afastassem. Desde o começo, havia uma certeza silenciosa de que era "para sempre". E o tempo só confirmou aquilo que o coração já havia decidido.</p>
+            <p>Os anos passaram, e o amor cresceu. Cresceu nos detalhes, nas escolhas diárias, no cuidado, na parceria e na construção de uma vida compartilhada. Cresceu firme, bonito e cheio de propósito.</p>
+            <p>Até que chegou o momento de dar um passo ainda maior: decidimos nos unir em matrimônio, perante Deus e a lei dos homens. Não como um fim, mas como uma continuação — um novo capítulo de tudo aquilo que já vínhamos construindo.</p>
+            <p>Somos duas pessoas comuns… mas que, juntas, se tornaram extraordinárias.</p>
+            <p>E o casamento? É apenas o começo da nossa história.</p>
+        </div>
     </section>
 
     <!-- ===================== O EVENTO ===================== -->
@@ -174,8 +305,19 @@
     <section id="rsvp" class="fundo-cinza">
         <h2>Confirme sua Presença</h2>
         <p style="color: var(--texto-secundario); margin-bottom: 30px;">
-            Por favor, confirme sua presença até o dia 15 de Julho de 2026.
+            Por favor, confirme sua presença até o dia 01 de Agosto de 2026.
         </p>
+
+        <!-- Contador de Convidados -->
+        <div class="bloco-contador-convidados">
+            <div class="numero-convidados">
+                <span id="total-convidados">—</span> / 200 <span>convidados</span>
+            </div>
+            <div class="barra-progresso-bg">
+                <div class="barra-progresso-fill" id="barra-fill" style="width: 0%"></div>
+            </div>
+            <div class="legenda-convidados">presenças confirmadas</div>
+        </div>
 
         <form id="form-rsvp" style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
             <input type="text" id="nomeConvidado" placeholder="Seu Nome Completo" required>
@@ -224,11 +366,12 @@
         }, 1000);
     </script>
 
-    <!-- ===================== SCRIPT: FIREBASE + RSVP ===================== -->
+    <!-- ===================== SCRIPT: FIREBASE + RSVP + MOSAICO ===================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAIPvSWjCDMdyZP8WaSuBMJBL2Wh1m441I",
@@ -243,7 +386,87 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
+        const storage = getStorage(app);
 
+        const LIMITE_CONVIDADOS = 200;
+
+        // ===================== CONTADOR DE CONVIDADOS =====================
+        async function atualizarContadorConvidados() {
+            try {
+                const snapshot = await getDocs(collection(db, "convidados"));
+                let total = 0;
+                snapshot.forEach(doc => {
+                    // Cada registro = 1 (o próprio convidado) + número de acompanhantes
+                    total += 1 + (doc.data().acompanhantes || 0);
+                });
+
+                document.getElementById('total-convidados').innerText = total;
+                const porcentagem = Math.min((total / LIMITE_CONVIDADOS) * 100, 100);
+                document.getElementById('barra-fill').style.width = porcentagem + '%';
+            } catch (e) {
+                console.warn('Erro ao carregar contador de convidados:', e);
+            }
+        }
+
+        atualizarContadorConvidados();
+
+        // ===================== MOSAICO =====================
+        const TOTAL_CELULAS = 20;
+        const INTERVALO_TROCA = 5000;
+        const ATRASO_ENTRE_CELULAS = 400;
+
+        async function iniciarMosaico() {
+            try {
+                const pastafotosRef = ref(storage, 'Fotos casal/');
+                const resultado = await listAll(pastafotosRef);
+
+                if (resultado.items.length === 0) return;
+
+                const urls = await Promise.all(resultado.items.map(item => getDownloadURL(item)));
+                const urlsEmbaralhadas = urls.sort(() => Math.random() - 0.5);
+                const container = document.getElementById('mosaic-bg');
+
+                for (let i = 0; i < TOTAL_CELULAS; i++) {
+                    const celula = document.createElement('div');
+                    celula.classList.add('mosaic-cell');
+
+                    const imgA = document.createElement('img');
+                    const imgB = document.createElement('img');
+                    imgA.alt = '';
+                    imgB.alt = '';
+
+                    imgA.src = urlsEmbaralhadas[i % urlsEmbaralhadas.length];
+                    imgA.classList.add('visivel');
+
+                    celula.appendChild(imgA);
+                    celula.appendChild(imgB);
+                    container.appendChild(celula);
+
+                    let fotoAtual = i % urlsEmbaralhadas.length;
+                    let usandoA = true;
+
+                    setTimeout(() => {
+                        setInterval(() => {
+                            fotoAtual = (fotoAtual + 1) % urlsEmbaralhadas.length;
+                            const proximaImg = usandoA ? imgB : imgA;
+                            const imgAtual  = usandoA ? imgA : imgB;
+
+                            proximaImg.src = urlsEmbaralhadas[fotoAtual];
+                            proximaImg.classList.add('visivel');
+                            imgAtual.classList.remove('visivel');
+
+                            usandoA = !usandoA;
+                        }, INTERVALO_TROCA);
+                    }, i * ATRASO_ENTRE_CELULAS);
+                }
+            } catch (e) {
+                console.warn('Mosaico: nenhuma foto encontrada ou erro ao carregar.', e);
+            }
+        }
+
+        iniciarMosaico();
+
+        // ===================== RSVP =====================
         document.getElementById('form-rsvp').addEventListener('submit', async function (event) {
             event.preventDefault();
 
@@ -267,6 +490,9 @@
                 feedback.innerText = "Presença confirmada com sucesso! Muito obrigado.";
                 document.getElementById('form-rsvp').reset();
 
+                // Atualiza o contador após nova confirmação
+                atualizarContadorConvidados();
+
             } catch (e) {
                 console.error("Erro ao adicionar documento: ", e);
                 feedback.style.display = "block";
@@ -278,6 +504,7 @@
             }
         });
     </script>
+
 
 </body>
 </html>
