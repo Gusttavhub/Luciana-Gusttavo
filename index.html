@@ -125,12 +125,47 @@
         }
 
         .hero .data {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.85);
+            display: none;
+        }
+
+        /* Seção de info abaixo do mosaico */
+        .info-casal {
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .data {
+            font-size: 1.1rem;
+            color: var(--texto-secundario);
             font-weight: 300;
             letter-spacing: 2px;
-            margin-bottom: 50px;
-            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        /* Navegação abaixo do mosaico */
+        .info-nav {
+            display: flex;
+            gap: 36px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .info-nav a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding-bottom: 3px;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .info-nav a:hover {
+            color: var(--texto-principal);
+            border-bottom-color: var(--texto-principal);
         }
 
         /* Contagem Regressiva */
@@ -150,15 +185,14 @@
         .numero {
             font-size: 2.5rem;
             font-weight: 300;
-            color: #ffffff;
-            text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+            color: var(--texto-principal);
         }
 
         .legenda {
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: rgba(255,255,255,0.75);
+            color: var(--texto-secundario);
             margin-top: 5px;
         }
 
@@ -472,15 +506,19 @@
         <!-- Conteúdo principal -->
         <div class="hero-conteudo">
             <h1>Gusttavo & Luciana</h1>
-            <p class="data">15 de Agosto de 2026 • 18:00</p>
-            <div class="contador" id="contador"></div>
-            <nav class="hero-nav">
-                <a href="#historia">Nossa História</a>
-                <a href="#rsvp">Confirmação de Presença</a>
-                <a href="#evento">O Evento</a>
-                <a href="#presentes">Lista de Presentes</a>
-            </nav>
         </div>
+    </section>
+
+    <!-- ===================== INFO DO CASAL ===================== -->
+    <section class="info-casal">
+        <p class="data">15 de Agosto de 2026 • 18:00</p>
+        <div class="contador" id="contador"></div>
+        <nav class="info-nav">
+            <a href="#historia">Nossa História</a>
+            <a href="#rsvp">Confirmação de Presença</a>
+            <a href="#evento">O Evento</a>
+            <a href="#presentes">Lista de Presentes</a>
+        </nav>
     </section>
 
     <!-- ===================== NOSSA HISTÓRIA ===================== -->
