@@ -278,6 +278,36 @@
             margin-top: 8px;
         }
 
+        /* Scroll suave global */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navegação no Hero */
+        .hero-nav {
+            display: flex;
+            gap: 36px;
+            margin-top: 52px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-nav a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding-bottom: 3px;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .hero-nav a:hover {
+            color: #fff;
+            border-bottom-color: rgba(255, 255, 255, 0.55);
+        }
+
         /* Botão Presentes no Hero */
         .btn-presentes-hero {
             display: inline-block;
@@ -444,7 +474,12 @@
             <h1>Gusttavo & Luciana</h1>
             <p class="data">15 de Agosto de 2026 • 18:00</p>
             <div class="contador" id="contador"></div>
-            <a href="#presentes" class="btn-presentes-hero">Lista de Presentes</a>
+            <nav class="hero-nav">
+                <a href="#historia">Nossa História</a>
+                <a href="#rsvp">Confirmação de Presença</a>
+                <a href="#evento">O Evento</a>
+                <a href="#presentes">Lista de Presentes</a>
+            </nav>
         </div>
     </section>
 
