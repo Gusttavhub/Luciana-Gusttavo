@@ -1029,7 +1029,8 @@
             </div>
 
         </div>
-        </section>
+    </section>
+
 
     <!-- ===================== MODAL DE PAGAMENTO ===================== -->
     <div class="modal-overlay" id="modal-overlay">
@@ -1186,8 +1187,6 @@
 
         atualizarContadorConvidados();
 
-        atualizarContadorConvidados();
-
         // ===================== PRESENTES - RESERVAS + MODAL =====================
         const VALOR_TOTAL_LISTA = 9290;
         const PIX_CHAVE = '64 9217-1411';
@@ -1290,10 +1289,6 @@
             document.getElementById('modal-barra-fill').style.width = pct.toFixed(1) + '%';
             document.getElementById('modal-barra-label').innerText = pct.toFixed(0) + '% do total da lista';
             document.getElementById('pix-chave-valor').innerText = PIX_CHAVE;
-
-            // Link Mercado Pago (use data-mp se disponível, senão #)
-            const mpLink = card.dataset.mp || '#';
-            document.getElementById('opcao-cartao').href = mpLink;
 
             // Link loja
             document.getElementById('opcao-loja').href = loja && loja !== '#' ? loja : '#';
