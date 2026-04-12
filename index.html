@@ -90,7 +90,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center center;
+            object-position: center top;
             opacity: 0;
             transition: opacity 2s ease-in-out;
         }
@@ -668,6 +668,39 @@
             font-size: 3rem;
         }
 
+        /* Endereço de entrega */
+        .entrega-wrap {
+            margin-top: 64px;
+            padding-top: 48px;
+            border-top: 1px solid #e8e8e8;
+            text-align: center;
+        }
+
+        .entrega-titulo {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--texto-secundario);
+            margin-bottom: 18px;
+        }
+
+        .entrega-local-nome {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--texto-principal);
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        .entrega-linha {
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+            letter-spacing: 1px;
+            line-height: 2;
+        }
+
         /* Modal de pagamento */
         .modal-overlay {
             display: none;
@@ -1218,10 +1251,16 @@
             </div>
 
         </div>
+
+        <!-- Endereço de entrega -->
+        <div class="entrega-wrap">
+            <div class="entrega-titulo">Endereço para entrega dos presentes</div>
+            <div class="entrega-local-nome">Gusttavo & Luciana</div>
+            <div class="entrega-linha">Avenida 03, quadra 20, lote 02 · Setor São Bento · Apt 206</div>
+            <div class="entrega-linha">Mineiros — GO &nbsp;·&nbsp; CEP 75.832-066</div>
+        </div>
+
     </section>
-
-
-    <!-- ===================== MODAL DE PAGAMENTO ===================== -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-box">
             <button class="modal-fechar" id="modal-fechar">✕</button>
