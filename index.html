@@ -1293,18 +1293,21 @@
                                 <span class="modal-opcao-subtitulo">Transferência instantânea, sem taxas</span>
                             </div>
                         </div>
-                        <div class="pix-box" id="pix-box">
+                            <div class="pix-box" id="pix-box">
                             <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--texto-secundario)">Chave PIX</div>
                             <div class="pix-chave" id="pix-chave-valor">64 9217-1411</div>
                             <button class="pix-copiar" id="pix-copiar">Copiar chave</button>
                             
                             <input type="text" id="nome-presenteador" placeholder="Seu Nome Completo" 
-                                   style="width: 100%; padding: 12px; margin-top: 24px; border: 1px solid #ccc; border-radius: 4px; font-family: var(--fonte-textos); font-size: 0.9rem; outline: none;">
+                                   style="width: 100%; padding: 12px; margin-top: 20px; border: 1px solid #ccc; border-radius: 4px; font-family: var(--fonte-textos); outline: none;">
+
+                            <input type="number" id="valor-enviado" placeholder="Valor enviado (R$)" min="1" step="0.01"
+                                   style="width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: var(--fonte-textos); outline: none;">
 
                             <div class="pix-instrucao">
-                                Após realizar o pagamento, digite seu nome acima e clique no botão abaixo. Você será redirecionado ao WhatsApp para nos enviar o comprovante!
+                                Após realizar o PIX, informe seu nome e o valor acima. O presente será atualizado automaticamente no site!
                             </div>
-                            <button class="pix-confirmar" id="pix-confirmar">Já paguei — Enviar Comprovante</button>
+                            <button class="pix-confirmar" id="pix-confirmar">Confirmar Contribuição</button>
                         </div>
                     </div>
 
