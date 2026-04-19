@@ -1297,10 +1297,14 @@
                             <div style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--texto-secundario)">Chave PIX</div>
                             <div class="pix-chave" id="pix-chave-valor">64 9217-1411</div>
                             <button class="pix-copiar" id="pix-copiar">Copiar chave</button>
+                            
+                            <input type="text" id="nome-presenteador" placeholder="Seu Nome Completo" 
+                                   style="width: 100%; padding: 12px; margin-top: 24px; border: 1px solid #ccc; border-radius: 4px; font-family: var(--fonte-textos); font-size: 0.9rem; outline: none;">
+
                             <div class="pix-instrucao">
-                                Após realizar o pagamento, clique abaixo para confirmar a reserva do presente.
+                                Após realizar o pagamento, digite seu nome acima e clique no botão abaixo. Você será redirecionado ao WhatsApp para nos enviar o comprovante!
                             </div>
-                            <button class="pix-confirmar" id="pix-confirmar">Já paguei — confirmar presente</button>
+                            <button class="pix-confirmar" id="pix-confirmar">Já paguei — Enviar Comprovante</button>
                         </div>
                     </div>
 
@@ -1559,27 +1563,59 @@
             });
         });
 
-        // Confirmar pagamento PIX
+// Confirmar pagamento PIX e Validar via WhatsApp
         document.getElementById('pix-confirmar').addEventListener('click', async function(e) {
             e.stopPropagation();
             if (!cardAtivo) return;
+
+            // Pega o nome digitado
+            const nomePresenteador = document.getElementById('nome-presenteador').value.trim();
+
+            // Validação de segurança: obriga a preencher o nome
+            if (!nomePresenteador) {
+                alert('Por favor, preencha seu nome para sabermos quem está nos presenteando!');
+                document.getElementById('nome-presenteador').focus();
+                return;
+            }
+
             const id    = cardAtivo.dataset.id;
             const nome  = cardAtivo.dataset.nome;
             const valor = parseInt(cardAtivo.dataset.valor);
+            
             this.innerText = 'Registrando...';
             this.disabled = true;
+            
             try {
-                // Salva como PENDENTE — só confirma após aprovação no painel admin
+                // Salva no banco de dados com o NOME do doador
                 await setDoc(doc(db, "pix_pendentes", id + '_' + Date.now()), {
                     presenteId: id,
                     presenteNome: nome,
                     valor: valor,
+                    doador: nomePresenteador, 
                     status: 'pendente',
                     dataEnvio: new Date().toISOString()
                 });
-                this.innerText = 'Enviado!';
-                setTimeout(() => fecharModal(), 1200);
+                
+                this.innerText = 'Redirecionando...';
+                
+                // LÓGICA DE VALIDAÇÃO: Monta a mensagem e abre o WhatsApp
+                // IMPORTANTE: Altere o número abaixo para o seu WhatsApp (com DDI 55 e DDD)
+                const numeroWhatsApp = "5564000000000"; 
+                const mensagem = `Olá! Meu nome é *${nomePresenteador}*. Acabei de presentear vocês com o item: *${nome}* (R$ ${valor}). Segue abaixo o meu comprovante do PIX!`;
+                const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+                // Abre o WhatsApp em nova aba
+                window.open(urlWhatsApp, '_blank');
+                
+                setTimeout(() => {
+                    fecharModal();
+                    this.innerText = 'Já paguei — Enviar Comprovante';
+                    this.disabled = false;
+                    document.getElementById('nome-presenteador').value = ''; // Limpa o campo
+                }, 1200);
+                
             } catch (err) {
+                console.error(err);
                 this.innerText = 'Erro — tente novamente';
                 this.disabled = false;
             }
