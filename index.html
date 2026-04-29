@@ -158,15 +158,15 @@
             visibility: hidden;
         }
 
-        /* Ajuste para esconder o meio também na versão de celular (telas menores) */
+        /* Ajuste para esconder o meio também na versão de celular */
         @media (max-width: 768px) {
             .mosaic-cell:nth-child(6),
             .mosaic-cell:nth-child(7) {
-                visibility: visible; /* Volta os normais */
+                visibility: visible; 
             }
             .mosaic-cell:nth-child(5),
             .mosaic-cell:nth-child(6) {
-                visibility: hidden; /* Esconde os do meio na grade do celular */
+                visibility: hidden; 
             }
         }
 
@@ -544,49 +544,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Navegação no Hero */
-        .hero-nav {
-            display: flex;
-            gap: 36px;
-            margin-top: 52px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .hero-nav a {
-            color: rgba(255, 255, 255, 0.75);
-            text-decoration: none;
-            font-size: 0.7rem;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            padding-bottom: 3px;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .hero-nav a:hover {
-            color: #fff;
-            border-bottom-color: rgba(255, 255, 255, 0.55);
-        }
-
-        /* Botão Presentes no Hero */
-        .btn-presentes-hero {
-            display: inline-block;
-            margin-top: 36px;
-            padding: 12px 34px;
-            border: 1px solid rgba(255,255,255,0.7);
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.78rem;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-
-        .btn-presentes-hero:hover {
-            background: rgba(255,255,255,0.18);
-        }
-
         /* Seção de Presentes */
         .categorias-filtro {
             display: flex;
@@ -631,6 +588,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background: #ffffff;
         }
 
         .presente-card:hover {
@@ -1171,290 +1129,17 @@
             <div class="progresso-global-percent" id="progresso-global-percent">0% presenteado</div>
         </div>
 
-        <div class="presentes-grid">
-
-            <div class="presente-card" data-cat="eletro" data-id="maquina-lavar-louca" data-valor="3549"
-                 data-nome="Máquina de Lavar Louça" data-descricao="Brastemp Smart Sensor 15 serviços"
-                 data-img="https://m.media-amazon.com/images/I/51ORU2+7KEL._AC_SX466_.jpg"
-                 data-loja="https://www.amazon.com.br/Lava-lou%C3%A7as-Servi%C3%A7os-Brastemp-Smart-Sensor/dp/B0DKG44NYQ/ref=sr_1_7?crid=3F5JSEHDA3CK2&dib=eyJ2IjoiMSJ9.4fV04E4eLByncwsf74INfyZaaqwUo4SWzEtzVkKXhddrF0E45qsnfhCfOwP7D33-ykKmDjvcONPq_fUEv9Mvoc6JdvKRAIeOx9ikeHX64sqNetWHsNPJBhREHXCBjM6Jvsr1s4LYOQ6-Jdhu3rtQjru_dAcSYW5n65UVpgRzoszZbQbHnCR39nIo_27M-kw8gncXrbRrD7skhMHlSb9_HHD5y_gP2Ayj-SsY4LkmpLrWK1ubzd6TWRUOV43rma6sbchnpcBp9J2daGg6Ad3f0364z9gm4_fwZHnjLrUjmms.ljv69gjFqMxEkafeJ8EvYhmVMCd5rxOGwY_-yxQWsmI&dib_tag=se&keywords=m%C3%A1quina+de+lavar+lou%C3%A7a+15+servi%C3%A7o+220v&qid=1777248223&sprefix=M%C3%A1quina+de+lavar+lou%C3%A7a+15%2Caps%2C240&sr=8-7&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Máquina de Lavar Louça</div>
-                <div class="presente-descricao">Brastemp Smart Sensor 15 serviços</div>
-                <div class="presente-valor">R$ 3.549</div>
-                <button class="presente-btn">Presentear</button>
+        <div class="presentes-grid" id="presentes-grid">
+            <div style="grid-column: 1/-1; text-align:center; color: var(--texto-secundario); padding: 40px;">
+                Carregando lista de presentes...
             </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="sanduicheira" data-valor="148"
-                 data-nome="Sanduicheira" data-descricao="Elétrica antiaderente"
-                 data-img="https://m.media-amazon.com/images/I/5131X1N1gWL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/gp/product/B07B675ZQ6/ref=ox_sc_act_title_1?smid=A1ZZFT5FULY4LN&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Sanduicheira</div>
-                <div class="presente-descricao">Elétrica antiaderente</div>
-                <div class="presente-valor">R$ 148</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="torradeira" data-valor="123"
-                 data-nome="Torradeira de Pão" data-descricao="Electrolux Efficient ETS10"
-                 data-img="https://m.media-amazon.com/images/I/51IRloWQneL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Torradeira-El%C3%A9trica-Electrolux-Efficient-ETS10/dp/B09CC71S5H/ref=asc_df_B09CC71S5H?mcid=0a122993f56d3eb582044f93fe32cb62&tag=googleshopp00-20&linkCode=df0&hvadid=721147801917&hvpos=&hvnetw=g&hvrand=5169143678532388793&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1031818&hvtargid=pla-2374768376294&gad_source=1&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Torradeira de Pão</div>
-                <div class="presente-descricao">Electrolux Efficient ETS10</div>
-                <div class="presente-valor">R$ 123</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="forno-eletrico" data-valor="409"
-                 data-nome="Forno Elétrico" data-descricao="Philco PFE52P 52 litros"
-                 data-img="https://m.media-amazon.com/images/I/61cqfHB8XNL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Forno-El%C3%A9trico-Philco-PFE52P-resist%C3%AAncia/dp/B0CBQPG37R/ref=asc_df_B0CBQPG37R?mcid=d26c594f0eb03aa8ad0cefcf1edc2ed0&tag=googleshopp00-20&linkCode=df0&hvadid=709886750320&hvpos=&hvnetw=g&hvrand=14342195141250728094&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1031818&hvtargid=pla-2264805729776&hvocijid=14342195141250728094-B0CBQPG37R-&hvexpln=0&language=pt_BR&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Forno Elétrico</div>
-                <div class="presente-descricao">Philco PFE52P 52 litros</div>
-                <div class="presente-valor">R$ 409</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="vaporizador" data-valor="187"
-                 data-nome="Vaporizador de Roupas" data-descricao="Portátil, remoção de amassados"
-                 data-img="https://m.media-amazon.com/images/I/61RNxwH7zyL._AC_SX569_.jpg"
-                 data-loja="https://www.amazon.com.br/gp/product/B08B6DLFYD/ref=ox_sc_act_title_5?smid=A1ZZFT5FULY4LN&psc=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Vaporizador de Roupas</div>
-                <div class="presente-descricao">Portátil, remoção de amassados</div>
-                <div class="presente-valor">R$ 187</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="air-fryer" data-valor="330"
-                 data-nome="Air Fryer" data-descricao="Philips Walita RapidAir"
-                 data-img="https://m.media-amazon.com/images/I/5106QpD9V6L._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Fritadeira-Airfryer-Walita-Tecnologia-RapidAir/dp/B0FMDNT137/ref=asc_df_B0FMDNT137?mcid=0e9c85ccaef93186a3c12ba37b1b6f97&tag=googleshopp00-20&linkCode=df0&hvadid=721147801917&hvpos=&hvnetw=g&hvrand=8736795722307689977&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1031818&hvtargid=pla-2374768376294&gad_source=1&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Air Fryer</div>
-                <div class="presente-descricao">Philips Walita RapidAir</div>
-                <div class="presente-valor">R$ 330</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="liquidificador" data-valor="279"
-                 data-nome="Liquidificador" data-descricao="Alta potência, jarro de vidro"
-                 data-img="https://m.media-amazon.com/images/I/613LbadctMS._AC_SY879_.jpg"
-                 data-loja="https://www.amazon.com.br/gp/product/B08TLM8GDQ/ref=ox_sc_act_title_1?smid=A1ZZFT5FULY4LN&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Liquidificador</div>
-                <div class="presente-descricao">Alta potência, jarro de vidro</div>
-                <div class="presente-valor">R$ 279</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="panela-pressao" data-valor="379"
-                 data-nome="Panela de Pressão Elétrica" data-descricao="Multifuncional, 6 litros"
-                 data-img="https://m.media-amazon.com/images/I/81iejDNyklL._AC_SX300_SY300_QL70_ML2_.jpg"
-                 data-loja="https://www.amazon.com.br/gp/product/B07L8SH6NK/ref=ox_sc_act_title_4?smid=A1ZZFT5FULY4LN&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Panela de Pressão Elétrica</div>
-                <div class="presente-descricao">Multifuncional, 6 litros</div>
-                <div class="presente-valor">R$ 379</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="maquina-pao" data-valor="548"
-                 data-nome="Máquina de Fazer Pão" data-descricao="Programável, várias receitas"
-                 data-img="https://m.media-amazon.com/images/I/71-WBAuwQwL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/gp/product/B08PPRZ76D/ref=ox_sc_act_image_1?smid=AF01SR382YB4A&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Máquina de Fazer Pão</div>
-                <div class="presente-descricao">Programável, várias receitas</div>
-                <div class="presente-valor">R$ 548</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="eletro" data-id="smart-tv-lg" data-valor="2659"
-                 data-nome='Smart TV 4K 55" LG UHD' data-descricao="LG UHD 55UA85 · Processador α7 AI Gen8"
-                 data-img="https://m.media-amazon.com/images/I/61RGkr3wqEL._AC_SL1000_.jpg"
-                 data-loja="https://www.amazon.com.br/dp/B0F5X39JQ1?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1">
-                <div class="presente-cat-label">Eletrodomésticos</div>
-                <div class="presente-nome">Smart TV 4K 55" LG UHD</div>
-                <div class="presente-descricao">LG UHD 55UA85 · Processador α7 AI Gen8</div>
-                <div class="presente-valor">R$ 2.659</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="jogo-tacas" data-valor="120"
-                 data-nome="Jogo de Taças" data-descricao="Cristal Bohemia Bordeaux Gastro"
-                 data-img="https://m.media-amazon.com/images/I/41-8Kv6rCDL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Ta%C3%A7as-Bordeaux-Gastro-Cristal-Bohemia/dp/B07KDBZ8HF/ref=asc_df_B07KDBZ8HF?mcid=6b6510d2c67b3575a1b1c4685391ebe7&tag=googleshopp00-20&linkCode=df0&hvadid=709964506238&hvpos=&hvnetw=g&hvrand=1065986128531093471&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1031818&hvtargid=pla-929724412079&psc=1&hvocijid=1065986128531093471-B07KDBZ8HF-&hvexpln=0&language=pt_BR">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Jogo de Taças</div>
-                <div class="presente-descricao">Cristal Bohemia Bordeaux Gastro</div>
-                <div class="presente-valor">R$ 120</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="panelas-tramontina" data-valor="709"
-                 data-nome="Jogo de Panelas Tramontina" data-descricao="Solar Aço Inox, conjunto completo"
-                 data-img="https://m.media-amazon.com/images/I/71yG1BEwZ+L._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/gp/product/B076B9N81Q/ref=ox_sc_act_image_1?smid=A1ZZFT5FULY4LN&psc=1">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Jogo de Panelas Tramontina</div>
-                <div class="presente-descricao">Solar Aço Inox, conjunto completo</div>
-                <div class="presente-valor">R$ 709</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="sousplat-rattan" data-valor="97"
-                 data-nome="Sousplat Rattan — Palha Natural" data-descricao="Jogo Americano Redondo 4 peças 38cm"
-                 data-img="https://m.media-amazon.com/images/I/61zhse5CgML._AC_SX679_.jpg"
-                 data-loja="Jogo Americano Redondo Rattan 4 Peças 38cm Sousplat de Palha Natural para Mesa Posta, Base Decorativa Elegante para Pratos, Protege a Mesa e Valoriza a Apresentação das Refeições | Amazon.com.br">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Sousplat Rattan — Palha Natural</div>
-                <div class="presente-descricao">Jogo Americano Redondo 4 peças 38cm</div>
-                <div class="presente-valor">R$ 97</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="sousplat-elegante" data-valor="60"
-                 data-nome="Sousplat Elegante — Antiderrapante" data-descricao="Kit Americano resistente"
-                 data-img="https://m.media-amazon.com/images/I/71WX02HlCAL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Kit-Americano-Elegante-Resistente-Antiderrapante/dp/B0GK2WLZQR/ref=sr_1_1_sspa?dib=eyJ2IjoiMSJ9.95p2BkrrQLuxAXX-3PBN5slKJzOZD7GXJFCIhGLjZXNERp9sloMXVF2WrIwAB_XNRJwH94MaWUaxClP956KcHmYXwFu2JqayarcHVriks2ZWVj0NvxLMZuIxlr51PRxRtCn5r0H-5RCG5KTzqK8p6UJ80U4Y0z7kai92jYGtwkZ8v0jOWti6tyTtMJxlqY7KWAWYU6AeNEbKCY-bNr_HooVwOWkDo0k4A0w8gBu5_j8wKkMxVquzGHjMul1wjDlIjZIDI4XVsXHsFj-0sDL3a5h4DGdtc64ooVzCd2VNYFM.LYnB3jcFleOC4leK9hD2kh-8Rygrycs_5-jAosRzyC8&dib_tag=se&keywords=sousplat%2Bjogo%2Bamericano&qid=1775420907&sr=8-1-spons&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Sousplat Elegante — Antiderrapante</div>
-                <div class="presente-descricao">Kit Americano resistente</div>
-                <div class="presente-valor">R$ 60</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="jogo-facas" data-valor="66"
-                 data-nome="Jogo de Facas" data-descricao="Tramontina Plenus, lâminas inox"
-                 data-img="https://m.media-amazon.com/images/I/51oCxGHT-aL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Facas-Tramontina-Plenus-L%C3%A2minas-Polipropileno/dp/B07WR4TP9W/ref=asc_df_B07WR4TP9W?mcid=0deda5f10ae63e419b94603efd19d4a9&tag=googleshopp00-20&linkCode=df0&hvadid=721147801917&hvpos=&hvnetw=g&hvrand=18411912045016312812&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1031818&hvtargid=pla-2374768376294&psc=1&gad_source=1">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Jogo de Facas</div>
-                <div class="presente-descricao">Tramontina Plenus, lâminas inox</div>
-                <div class="presente-valor">R$ 66</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="jogo-talheres" data-valor="267"
-                 data-nome="Jogo de Talheres" data-descricao="Faqueiro Tramontina Laguna Aço Inox 42 peças"
-                 data-img="https://m.media-amazon.com/images/I/51UQ-Tx6-LL._AC_SX679_.jpg"
-                 data-loja="Faqueiro Aço Inox com Faca para Churrasco com 42 Peças Tramontina Laguna. : Amazon.com.br: Cozinha">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Jogo de Talheres</div>
-                <div class="presente-descricao">Faqueiro Tramontina Laguna Aço Inox 42 peças</div>
-                <div class="presente-valor">R$ 267</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="petisqueira-melamina" data-valor="60"
-                 data-nome="Petisqueira de Melamina" data-descricao="Com garfinhos para petiscos"
-                 data-img="https://m.media-amazon.com/images/I/61qlhRliuBL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Petisqueira-melamina-garfinhos-petisco-feitos/dp/B0DPGY8VJK/ref=asc_df_B0DPGY8VJK?mcid=219efed253d3335fa046855a0d6b5300&tag=googleshopp00-20&linkCode=df0&hvadid=709878548112&hvpos=&hvnetw=g&hvrand=5203654154862814754&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1031818&hvtargid=pla-2387674387099&psc=1&hvocijid=5203654154862814754-B0DPGY8VJK-&hvexpln=0&language=pt_BR">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Petisqueira de Melamina</div>
-                <div class="presente-descricao">Com garfinhos para petiscos</div>
-                <div class="presente-valor">R$ 60</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="tabua-queijos-lumai" data-valor="190"
-                 data-nome="Tábua para Queijos e Frios" data-descricao="LUMAI Bambu, formato coração com facas"
-                 data-img="https://m.media-amazon.com/images/I/71Jx1Z4tmhL._AC_SX569_.jpg"
-                 data-loja="LUMAI Kit Tábua Para Queijos e Frios Formato Coração com Facas, Garfos, Divisórias e Encaixe Magnético – Petisqueira de Bambu Modular para Servir Queijos, Frutas e Aperitivos : Amazon.com.br: Cozinha">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Tábua para Queijos e Frios</div>
-                <div class="presente-descricao">LUMAI Bambu, formato coração com facas</div>
-                <div class="presente-valor">R$ 190</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="kit-temperos" data-valor="90"
-                 data-nome="Kit de Temperos" data-descricao="10 potes de vidro 250ml com tampa de bambu"
-                 data-img="https://m.media-amazon.com/images/I/81OXBiW4TnL._AC_SY300_SX300_QL70_ML2_.jpg"
-                 data-loja="Kit 10 Potes de Vidro 250ml com Tampa de Bambu Hermética – Empilháveis com Vedação de Silicone, Potes para Temperos, Grãos, Mantimentos e Conservas, Recipientes de Vidro para Cozinha, Organização | Amazon.com.br">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Kit de Temperos</div>
-                <div class="presente-descricao">10 potes de vidro 250ml com tampa de bambu</div>
-                <div class="presente-valor">R$ 90</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="cozinha" data-id="jogo-jantar" data-valor="317"
-                 data-nome="Jogo de Jantar" data-descricao="Tramontina Arbo Porcelana 20 peças"
-                 data-img="https://http2.mlstatic.com/D_NQ_NP_2X_911558-MLA96136868935_102025-F.webp"
-                 data-loja="Aparelho De Jantar Tramontina Arbo Porcelana 20 Peças | MercadoLivre">
-                <div class="presente-cat-label">Cozinha & Mesa</div>
-                <div class="presente-nome">Jogo de Jantar</div>
-                <div class="presente-descricao">Tramontina Arbo Porcelana 20 peças</div>
-                <div class="presente-valor">R$ 317</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="casa" data-id="sofa" data-valor="2979"
-                 data-nome="Sofá Retrátil e Reclinável" data-descricao="Velusoft, bordado, ensacado"
-                 data-img="https://m.media-amazon.com/images/I/61TUFodZWZL._AC_SX679_.jpg"
-                 data-loja="https://www.amazon.com.br/Retr%C3%A1til-Reclin%C3%A1vel-Ensacadas-Bordado-Velusoft/dp/B09YS9K7J7/ref=asc_df_B09YS9K7J7?mcid=921a8945dd8c35078b76ce0fc6baea74&tag=googleshopp00-20&linkCode=df0&hvadid=709968341269&hvpos=&hvnetw=g&hvrand=3067871483948941091&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1031818&hvtargid=pla-2269389454692&psc=1&hvocijid=3067871483948941091-B09YS9K7J7-&hvexpln=0&language=pt_BR">
-                <div class="presente-cat-label">Casa</div>
-                <div class="presente-nome">Sofá Retrátil e Reclinável</div>
-                <div class="presente-descricao">Velusoft, bordado, ensacado</div>
-                <div class="presente-valor">R$ 2.979</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="casa" data-id="kit-toalha-branco" data-valor="289"
-                 data-nome="Kit de Toalha — Branco" data-descricao="Buddemeyer Banhão Fio Penteado · 4 peças"
-                 data-img="https://m.media-amazon.com/images/I/71KYI2gW4hL._AC_SX569_.jpg"
-                 data-loja="Jogo De Banho Gigante Buddemeyer - Toalha Banhão Fio Penteado Canelado - 100% Algodão - Kit 4 Peças (Branco) | Amazon.com.br">
-                <div class="presente-cat-label">Casa</div>
-                <div class="presente-nome">Kit de Toalha — Branco</div>
-                <div class="presente-descricao">Buddemeyer Banhão Fio Penteado · 4 peças</div>
-                <div class="presente-valor">R$ 289</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="casa" data-id="kit-toalha-verde" data-valor="312"
-                 data-nome="Kit de Toalha — Verde" data-descricao="Buddemeyer Banhão Fio Penteado · 4 peças"
-                 data-img="https://m.media-amazon.com/images/I/8106ZVa3rLL._AC_SX569_.jpg"
-                 data-loja="Jogo De Banho Gigante Buddemeyer - Toalha Banhão Fio Penteado Canelado - 100% Algodão - Kit 4 Peças (Verde 1871/1836) | Amazon.com.br">
-                <div class="presente-cat-label">Casa</div>
-                <div class="presente-nome">Kit de Toalha — Verde</div>
-                <div class="presente-descricao">Buddemeyer Banhão Fio Penteado · 4 peças</div>
-                <div class="presente-valor">R$ 312</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="casa" data-id="mesa-jantar" data-valor="5451"
-                 data-nome="Mesa de Jantar + 5 Cadeiras" data-descricao="Mesa Cone Ø150cm + Cadeiras New York"
-                 data-img="https://decorise.cdn.magazord.com.br/img/2025/04/produto/10115/mesa-cone-e-cadeiras-new-york-cmm.jpg?ims=1000x1000"
-                 data-loja="Conjunto Mesa Cone Ø150cm + 5 Cadeiras New York Assento Estofado Corano Marrom Mescla">
-                <div class="presente-cat-label">Casa</div>
-                <div class="presente-nome">Mesa de Jantar + 5 Cadeiras</div>
-                <div class="presente-descricao">Mesa Cone Ø150cm + Cadeiras New York</div>
-                <div class="presente-valor">R$ 5.451</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
-            <div class="presente-card" data-cat="casa" data-id="mesa-cabeceira" data-valor="338"
-                 data-nome="Mesa de Cabeceira (par)" data-descricao="Estilo Retrô · Madeira maciça Grécia"
-                 data-img="https://m.media-amazon.com/images/I/71mw0qwv2nL._AC_SX569_.jpg"
-                 data-loja="Mesa De Cabeceira 1 mesa Estilo Retrô Pés Em Madeira Maciça Grécia (Branco) | Amazon.com.br">
-                <div class="presente-cat-label">Casa</div>
-                <div class="presente-nome">Mesa de Cabeceira (par)</div>
-                <div class="presente-descricao">Estilo Retrô · Madeira maciça Grécia</div>
-                <div class="presente-valor">R$ 338</div>
-                <button class="presente-btn">Presentear</button>
-            </div>
-
         </div>
     </section>
 
     <section class="entrega-section">
         <div class="entrega-wrap">
             <div class="entrega-titulo">Endereço para entrega dos presentes</div>
-            <div class="entrega-local-nome">Gusttavo & Luciana</div>
+            <div class="entrega-local-nome">Luciana & Gusttavo</div>
             <div class="entrega-linha">Avenida 03, quadra 20, lote 02 · Setor São Bento · Apt 206</div>
             <div class="entrega-linha">Mineiros — GO  ·  CEP 75.832-066</div>
         </div>
@@ -1570,11 +1255,8 @@
                 });
             });
         });
-    </script>
 
-    <script>
         const dataCasamento = new Date("August 15, 2026 18:00:00").getTime();
-
         const atualizarContador = setInterval(function () {
             const agora = new Date().getTime();
             const distancia = dataCasamento - agora;
@@ -1613,7 +1295,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
-        import { getFirestore, collection, addDoc, getDocs, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
         import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
         const firebaseConfig = {
@@ -1632,29 +1314,7 @@
         const storage = getStorage(app);
 
         const LIMITE_CONVIDADOS = 200;
-
-        // ===================== CONTADOR DE CONVIDADOS =====================
-        async function atualizarContadorConvidados() {
-            try {
-                const snapshot = await getDocs(collection(db, "convidados"));
-                let total = 0;
-                snapshot.forEach(doc => {
-                    total += 1 + (doc.data().acompanhantes || 0);
-                });
-
-                document.getElementById('total-convidados').innerText = total;
-                const porcentagem = Math.min((total / LIMITE_CONVIDADOS) * 100, 100);
-                document.getElementById('barra-fill').style.width = porcentagem + '%';
-            } catch (e) {
-                console.warn('Erro ao carregar contador de convidados:', e);
-            }
-        }
-
-        atualizarContadorConvidados();
-
-        // ===================== LÓGICA DE COTAS E PROGRESSO =====================
         const PIX_CHAVE = '64 9217-1411';
-        // WhatsApp da noiva (formato wa.me — DDI 55 + DDD + 9 + número)
         const WHATSAPP_NOIVA = '5564992171411';
         let cardAtivo = null;
 
@@ -1681,33 +1341,76 @@
             window.open(url, '_blank');
         }
 
-        // Estrutura inicial das barras
-        document.querySelectorAll('.presente-card').forEach(card => {
-            const imgUrl = card.dataset.img;
-            const body = document.createElement('div');
-            body.className = 'presente-card-body';
-            while (card.firstChild) body.appendChild(card.firstChild);
-            card.appendChild(body);
+        // ===================== BUSCA DO CATÁLOGO DE PRESENTES =====================
+        async function carregarListaDePresentes() {
+            const grid = document.getElementById('presentes-grid');
+            try {
+                const snap = await getDocs(collection(db, "presentes_catalogo"));
+                grid.innerHTML = ''; 
 
-            if (imgUrl) {
-                const img = document.createElement('img');
-                img.src = imgUrl;
-                img.alt = card.dataset.nome;
-                img.className = 'presente-img';
-                card.insertBefore(img, body);
+                if (snap.empty) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:40px; color:#999;">Lista sendo preparada pelos noivos. Volte em breve!</div>';
+                    return;
+                }
+
+                const categoriasNomes = {
+                    'eletro': 'Eletrodomésticos',
+                    'cozinha': 'Cozinha & Mesa',
+                    'casa': 'Casa'
+                };
+
+                snap.forEach(doc => {
+                    const item = doc.data();
+                    const id = doc.id;
+                    const catLabel = categoriasNomes[item.categoria] || item.categoria;
+
+                    const card = document.createElement('div');
+                    card.className = 'presente-card';
+                    card.dataset.cat = item.categoria;
+                    card.dataset.id = id;
+                    card.dataset.valor = item.valor;
+                    card.dataset.nome = item.nome;
+                    card.dataset.descricao = item.descricao;
+                    card.dataset.img = item.img;
+                    card.dataset.loja = item.loja || '';
+
+                    card.innerHTML = `
+                        <img src="${item.img}" alt="${item.nome}" class="presente-img" loading="lazy">
+                        <div class="presente-card-body">
+                            <div class="presente-cat-label">${catLabel}</div>
+                            <div class="presente-nome">${item.nome}</div>
+                            <div class="presente-descricao">${item.descricao}</div>
+                            <div class="presente-valor">R$ ${Number(item.valor).toLocaleString('pt-BR')}</div>
+                            <div class="presente-barra-bg">
+                                <div class="presente-barra-fill" style="width:0%"></div>
+                            </div>
+                            <div class="presente-barra-label">Disponível</div>
+                            <button class="presente-btn">Presentear</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                // Liga os botões novos ao modal
+                document.querySelectorAll('.presente-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        if (this.classList.contains('btn-reservado')) return;
+                        cardAtivo = this.closest('.presente-card');
+                        abrirModal(cardAtivo);
+                    });
+                });
+
+                // Reaplica o filtro caso a pessoa já tenha clicado antes de carregar
+                const btnAtivo = document.querySelector('.filtro-btn.ativo');
+                if(btnAtivo) btnAtivo.click();
+
+            } catch (e) {
+                console.error(e);
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; color:#b00020;">Erro ao carregar os presentes. Tente atualizar a página.</div>';
             }
+        }
 
-            const barra = document.createElement('div');
-            barra.className = 'presente-barra-bg';
-            barra.innerHTML = `<div class="presente-barra-fill" style="width:0%"></div>`;
-            body.appendChild(barra);
-            const lbl = document.createElement('div');
-            lbl.className = 'presente-barra-label';
-            lbl.innerText = 'Disponível';
-            body.appendChild(lbl);
-        });
-
-        // Carrega progresso do banco + atualiza barra global da lista
+        // ===================== CARREGA O PROGRESSO DAS CONTRIBUIÇÕES =====================
         async function carregarProgressoPresentes() {
             try {
                 const snapshot = await getDocs(collection(db, "presentes_contribuicoes"));
@@ -1753,13 +1456,13 @@
                     }
                 });
 
-                // Barra global da lista
                 const pctGlobal = metaTotal > 0 ? Math.min((arrecadadoTotal / metaTotal) * 100, 100) : 0;
                 const arrEl = document.getElementById('progresso-global-arrecadado');
                 const metaEl = document.getElementById('progresso-global-meta');
                 const fillEl = document.getElementById('progresso-global-fill');
                 const pctEl  = document.getElementById('progresso-global-percent');
                 const ariaEl = document.getElementById('progresso-global-aria');
+                
                 if (arrEl)  arrEl.innerText  = 'R$ ' + Math.round(arrecadadoTotal).toLocaleString('pt-BR');
                 if (metaEl) metaEl.innerText = 'de R$ ' + Math.round(metaTotal).toLocaleString('pt-BR');
                 if (fillEl) fillEl.style.width = pctGlobal.toFixed(1) + '%';
@@ -1770,10 +1473,26 @@
             }
         }
 
-        carregarProgressoPresentes();
+        // Executa a busca do catálogo, e quando terminar, busca o progresso.
+        carregarListaDePresentes().then(() => {
+            carregarProgressoPresentes();
+        });
 
-        // ===================== RATE-LIMIT (#6) =====================
-        // Bloqueia repetição do mesmo (nome+presente+método) por 5 min via localStorage
+
+        // ===================== CONTADOR DE CONVIDADOS =====================
+        async function atualizarContadorConvidados() {
+            try {
+                const snapshot = await getDocs(collection(db, "convidados"));
+                let total = 0;
+                snapshot.forEach(doc => { total += 1 + (doc.data().acompanhantes || 0); });
+                document.getElementById('total-convidados').innerText = total;
+                const porcentagem = Math.min((total / LIMITE_CONVIDADOS) * 100, 100);
+                document.getElementById('barra-fill').style.width = porcentagem + '%';
+            } catch (e) { console.warn('Erro contador de convidados:', e); }
+        }
+        atualizarContadorConvidados();
+
+        // ===================== LÓGICA DE COTAS & RATE LIMIT =====================
         const RATE_LIMIT_MS = 5 * 60 * 1000;
         function chaveRateLimit(presenteId, doador, metodo) {
             return `gl_doacao_${metodo}_${presenteId}_${doador.toLowerCase().replace(/\s+/g,'_')}`;
@@ -1786,20 +1505,10 @@
             } catch { return false; }
         }
         function marcarContribuicao(presenteId, doador, metodo) {
-            try {
-                localStorage.setItem(chaveRateLimit(presenteId, doador, metodo), String(Date.now()));
-            } catch {}
+            try { localStorage.setItem(chaveRateLimit(presenteId, doador, metodo), String(Date.now())); } catch {}
         }
 
-        // ===================== ABRIR / FECHAR MODAL =====================
-        document.querySelectorAll('.presente-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (this.classList.contains('btn-reservado')) return;
-                cardAtivo = this.closest('.presente-card');
-                abrirModal(cardAtivo);
-            });
-        });
-
+        // ===================== MODAL DE PRESENTE =====================
         function abrirModal(card) {
             const img    = card.dataset.img;
             const cat    = card.querySelector('.presente-cat-label').innerText;
@@ -1811,8 +1520,7 @@
             if (img) {
                 wrap.innerHTML = `<img class="modal-img" src="${img}" alt="${nome}">`;
             } else {
-                const emoji = card.querySelector('.presente-img-placeholder').innerText;
-                wrap.innerHTML = `<div class="modal-img-placeholder">${emoji}</div>`;
+                wrap.innerHTML = `<div class="modal-img-placeholder">🎁</div>`;
             }
 
             document.getElementById('modal-cat').innerText = cat;
@@ -1821,7 +1529,6 @@
             document.getElementById('modal-valor').innerText = 'R$ ' + valor.toLocaleString('pt-BR');
             document.getElementById('pix-chave-valor').innerText = PIX_CHAVE;
 
-            // Fecha sanfonas ao abrir
             document.getElementById('pix-box').classList.remove('aberto');
             document.getElementById('loja-box').classList.remove('aberto');
 
@@ -1854,11 +1561,7 @@
         document.getElementById('pix-header').addEventListener('click', function() {
             document.getElementById('pix-box').classList.toggle('aberto');
         });
-
-        document.getElementById('pix-box').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
+        document.getElementById('pix-box').addEventListener('click', function(e) { e.stopPropagation(); });
         document.getElementById('pix-copiar').addEventListener('click', function(e) {
             e.stopPropagation();
             navigator.clipboard.writeText(PIX_CHAVE).then(() => {
@@ -1875,19 +1578,17 @@
             const valorDigitado = parseFloat(document.getElementById('valor-enviado').value);
 
             if (nomeDoador.length < 3 || !nomeDoador.includes(' ')) {
-                alert('Por favor, informe seu nome completo.');
-                return;
+                alert('Por favor, informe seu nome completo.'); return;
             }
             if (isNaN(valorDigitado) || valorDigitado <= 0) {
-                alert('Informe o valor enviado pelo PIX (em R$).');
-                return;
+                alert('Informe o valor enviado pelo PIX (em R$).'); return;
             }
 
             const id = cardAtivo.dataset.id;
             const nomePresente = cardAtivo.dataset.nome;
 
             if (jaContribuiuRecentemente(id, nomeDoador, 'pix')) {
-                alert('Detectamos uma contribuição recente sua para este presente. Aguarde alguns minutos antes de enviar novamente, para evitar duplicidade. 💙');
+                alert('Detectamos uma contribuição recente sua para este presente. Aguarde alguns minutos antes de enviar novamente. 💙');
                 return;
             }
 
@@ -1905,28 +1606,18 @@
                     data: new Date().toISOString()
                 });
                 marcarContribuicao(id, nomeDoador, 'pix');
-
                 await carregarProgressoPresentes();
 
-                abrirWhatsAppNoiva({
-                    presente: nomePresente,
-                    doador: nomeDoador,
-                    valor: valorDigitado,
-                    metodo: 'pix'
-                });
-
-                alert(`Muito obrigado, ${nomeDoador}! 💕\n\nSua contribuição de R$ ${formatarMoeda(valorDigitado)} para "${nomePresente}" foi registrada.\n\nUma mensagem foi aberta no WhatsApp da noiva — envie para confirmar o presente.`);
+                abrirWhatsAppNoiva({ presente: nomePresente, doador: nomeDoador, valor: valorDigitado, metodo: 'pix' });
+                alert(`Muito obrigado, ${nomeDoador}! 💕\n\nSua contribuição de R$ ${formatarMoeda(valorDigitado)} para "${nomePresente}" foi registrada.\n\nUma mensagem foi aberta no WhatsApp da noiva — envie para confirmar.`);
 
                 fecharModal();
                 document.getElementById('nome-presenteador').value = '';
                 document.getElementById('valor-enviado').value = '';
-
             } catch (err) {
-                console.error(err);
-                alert('Erro ao salvar. Tente novamente.');
+                console.error(err); alert('Erro ao salvar. Tente novamente.');
             } finally {
-                this.innerText = 'Confirmar Contribuição';
-                this.disabled = false;
+                this.innerText = 'Confirmar Contribuição'; this.disabled = false;
             }
         });
 
@@ -1934,36 +1625,14 @@
         document.getElementById('loja-header').addEventListener('click', function() {
             document.getElementById('loja-box').classList.toggle('aberto');
         });
+        document.getElementById('loja-box').addEventListener('click', function(e) { e.stopPropagation(); });
 
-        document.getElementById('loja-box').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        async function registrarReservaLoja(id, nome, valor, tipo, doador) {
-            await addDoc(collection(db, "presentes_contribuicoes"), {
-                presenteId: id,
-                presenteNome: nome,
-                doador: doador,
-                valorContribuido: valor,
-                metodo: tipo,
-                statusValidacao: 'aguardando_confirmacao_noiva',
-                data: new Date().toISOString()
-            });
-            await carregarProgressoPresentes();
-        }
-
-        // Botão "Ver presente no site" — abre o link OU busca no Google se for texto
         document.getElementById('loja-visitar').addEventListener('click', function(e) {
             e.stopPropagation();
             if (!cardAtivo) return;
             const linkLoja = (cardAtivo.dataset.loja || '').trim();
-            if (!linkLoja) {
-                alert('Link da loja indisponível para este item.');
-                return;
-            }
-            const url = /^https?:\/\//i.test(linkLoja)
-                ? linkLoja
-                : 'https://www.google.com/search?q=' + encodeURIComponent(linkLoja);
+            if (!linkLoja) { alert('Link da loja indisponível para este item.'); return; }
+            const url = /^https?:\/\//i.test(linkLoja) ? linkLoja : 'https://www.google.com/search?q=' + encodeURIComponent(linkLoja);
             window.open(url, '_blank', 'noopener,noreferrer');
         });
 
@@ -1972,11 +1641,9 @@
             if (!cardAtivo) return;
 
             const nomeDoador = document.getElementById('nome-presenteador-loja').value.trim();
-
             if (nomeDoador.length < 3 || !nomeDoador.includes(' ')) {
                 alert('Por favor, informe seu nome completo antes de registrar a compra.');
-                document.getElementById('nome-presenteador-loja').focus();
-                return;
+                document.getElementById('nome-presenteador-loja').focus(); return;
             }
 
             const id    = cardAtivo.dataset.id;
@@ -1984,41 +1651,34 @@
             const valor = parseInt(cardAtivo.dataset.valor);
 
             if (jaContribuiuRecentemente(id, nomeDoador, 'loja')) {
-                alert('Detectamos um registro recente seu para este presente. Aguarde alguns minutos antes de registrar novamente. 💙');
-                return;
+                alert('Detectamos um registro recente seu para este presente. Aguarde alguns minutos antes de registrar novamente. 💙'); return;
             }
 
             this.innerText = 'Registrando...';
             this.disabled = true;
 
             try {
-                await registrarReservaLoja(id, nome, valor, 'loja', nomeDoador);
-                marcarContribuicao(id, nomeDoador, 'loja');
-
-                abrirWhatsAppNoiva({
-                    presente: nome,
-                    doador: nomeDoador,
-                    valor: valor,
-                    metodo: 'loja'
+                await addDoc(collection(db, "presentes_contribuicoes"), {
+                    presenteId: id, presenteNome: nome, doador: nomeDoador, valorContribuido: valor,
+                    metodo: 'loja', statusValidacao: 'aguardando_confirmacao_noiva', data: new Date().toISOString()
                 });
+                marcarContribuicao(id, nomeDoador, 'loja');
+                await carregarProgressoPresentes();
 
-                alert(`Obrigado, ${nomeDoador}! 💕\n\nSua compra de "${nome}" foi registrada.\n\nUma mensagem foi aberta no WhatsApp da noiva — envie para avisá-la sobre o presente.`);
+                abrirWhatsAppNoiva({ presente: nome, doador: nomeDoador, valor: valor, metodo: 'loja' });
+                alert(`Obrigado, ${nomeDoador}! 💕\n\nSua compra de "${nome}" foi registrada.\n\nUma mensagem foi aberta no WhatsApp da noiva — envie para avisá-la.`);
 
                 setTimeout(() => {
                     fecharModal();
-                    this.innerText = '2. Registrar Compra';
-                    this.disabled = false;
+                    this.innerText = '2. Registrar Compra'; this.disabled = false;
                     document.getElementById('nome-presenteador-loja').value = '';
                 }, 500);
-
             } catch (err) {
-                console.error(err);
-                this.innerText = 'Erro — tente novamente';
-                this.disabled = false;
+                console.error(err); this.innerText = 'Erro — tente novamente'; this.disabled = false;
             }
         });
 
-        // ===================== MOSAICO =====================
+        // ===================== MOSAICO & FOTOS =====================
         const TOTAL_CELULAS = 12;
         const INTERVALO_TROCA = 5000;
         const ATRASO_ENTRE_CELULAS = 400;
@@ -2039,13 +1699,11 @@
 
                     const imgA = document.createElement('img');
                     const imgB = document.createElement('img');
-                    imgA.alt = '';
-                    imgB.alt = '';
+                    imgA.alt = ''; imgB.alt = '';
                     imgA.src = urlsEmbaralhadas[i % urlsEmbaralhadas.length];
                     imgA.className = 'visivel';
 
-                    celula.appendChild(imgA);
-                    celula.appendChild(imgB);
+                    celula.appendChild(imgA); celula.appendChild(imgB);
                     container.appendChild(celula);
 
                     let fotoAtual = i % urlsEmbaralhadas.length;
@@ -2067,38 +1725,26 @@
                         }, INTERVALO_TROCA);
                     }, i * ATRASO_ENTRE_CELULAS);
                 }
-            } catch (e) {
-                console.warn('Mosaico: erro ao carregar fotos.', e);
-            }
+            } catch (e) { console.warn('Mosaico: erro ao carregar fotos.', e); }
         }
         iniciarMosaico();
 
-        // ===================== GALERIA DO LOCAL =====================
         async function iniciarGaleriaLocal() {
             try {
                 const pastaRef = ref(storage, 'Fotos local do casamento/');
                 const resultado = await listAll(pastaRef);
                 if (resultado.items.length === 0) return;
-
                 const urls = await Promise.all(resultado.items.map(item => getDownloadURL(item)));
                 const container = document.getElementById('galeria-local');
                 urls.slice(0, 6).forEach(url => {
-                    const cell = document.createElement('div');
-                    cell.className = 'evento-galeria-cell';
-                    const img = document.createElement('img');
-                    img.src = url;
-                    img.alt = 'Recanto das Emílias';
-                    img.loading = 'lazy';
-                    cell.appendChild(img);
-                    container.appendChild(cell);
+                    const cell = document.createElement('div'); cell.className = 'evento-galeria-cell';
+                    const img = document.createElement('img'); img.src = url; img.alt = 'Recanto das Emílias'; img.loading = 'lazy';
+                    cell.appendChild(img); container.appendChild(cell);
                 });
-            } catch (e) {
-                console.warn('Galeria local: erro ao carregar fotos.', e);
-            }
+            } catch (e) { console.warn('Galeria local: erro.', e); }
         }
         iniciarGaleriaLocal();
 
-        // ===================== FOTO DA IGREJA =====================
         async function iniciarGaleriaIgreja() {
             try {
                 const pastaRef = ref(storage, 'Igreja/');
@@ -2106,84 +1752,57 @@
                 if (resultado.items.length === 0) return;
                 const url = await getDownloadURL(resultado.items[0]);
                 const container = document.getElementById('galeria-igreja');
-                const img = document.createElement('img');
-                img.src = url;
-                img.alt = 'Paróquia Nossa Senhora Auxiliadora';
-                img.loading = 'lazy';
+                const img = document.createElement('img'); img.src = url; img.alt = 'Paróquia Nossa Senhora Auxiliadora'; img.loading = 'lazy';
                 container.appendChild(img);
-            } catch (e) {
-                console.warn('Igreja: erro —', e.message);
-            }
+            } catch (e) { console.warn('Igreja: erro —', e.message); }
         }
         iniciarGaleriaIgreja();
 
-        // ===================== RSVP (com dedup #5) =====================
+        // ===================== RSVP (Dedup) =====================
         function normalizarNome(s) {
-            return (s || '')
-                .toLowerCase()
-                .normalize('NFD').replace(/[̀-ͯ]/g, '')
-                .replace(/\s+/g, ' ')
-                .trim();
+            return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
         }
 
         document.getElementById('form-rsvp').addEventListener('submit', async function (event) {
             event.preventDefault();
-
             const btn = document.getElementById('btn-confirmar');
             const feedback = document.getElementById('mensagem-feedback');
             const nome = document.getElementById('nomeConvidado').value.trim();
             const acompanhantes = parseInt(document.getElementById('qtdAcompanhantes').value, 10);
 
             if (nome.length < 3 || !nome.includes(' ')) {
-                feedback.style.display = "block";
-                feedback.style.color = "#b00020";
-                feedback.innerText = "Por favor, informe seu nome completo.";
-                return;
+                feedback.style.display = "block"; feedback.style.color = "#b00020";
+                feedback.innerText = "Por favor, informe seu nome completo."; return;
             }
 
             try {
-                btn.innerText = "Verificando...";
-                btn.disabled = true;
+                btn.innerText = "Verificando..."; btn.disabled = true;
 
-                // Dedup: checa se já existe confirmação com este nome
                 const snapshot = await getDocs(collection(db, "convidados"));
                 const nomeNorm = normalizarNome(nome);
                 let jaExiste = false;
-                snapshot.forEach(doc => {
-                    if (normalizarNome(doc.data().nome) === nomeNorm) jaExiste = true;
-                });
+                snapshot.forEach(doc => { if (normalizarNome(doc.data().nome) === nomeNorm) jaExiste = true; });
 
                 if (jaExiste) {
-                    feedback.style.display = "block";
-                    feedback.style.color = "#b00020";
-                    feedback.innerText = "Já encontramos uma confirmação com este nome. Se foi engano, fale com os noivos.";
-                    return;
+                    feedback.style.display = "block"; feedback.style.color = "#b00020";
+                    feedback.innerText = "Já encontramos uma confirmação com este nome. Se foi engano, fale com os noivos."; return;
                 }
 
                 btn.innerText = "Enviando...";
-
                 await addDoc(collection(db, "convidados"), {
-                    nome: nome,
-                    nomeNormalizado: nomeNorm,
-                    acompanhantes: acompanhantes,
-                    dataConfirmacao: new Date().toISOString()
+                    nome: nome, nomeNormalizado: nomeNorm, acompanhantes: acompanhantes, dataConfirmacao: new Date().toISOString()
                 });
 
-                feedback.style.display = "block";
-                feedback.style.color = "#0a7c2e";
+                feedback.style.display = "block"; feedback.style.color = "#0a7c2e";
                 feedback.innerText = "Presença confirmada com sucesso! Muito obrigado.";
                 document.getElementById('form-rsvp').reset();
-
                 atualizarContadorConvidados();
-
             } catch (e) {
-                console.error("Erro ao adicionar documento: ", e);
-                feedback.style.display = "block";
-                feedback.style.color = "#b00020";
+                console.error("Erro: ", e);
+                feedback.style.display = "block"; feedback.style.color = "#b00020";
                 feedback.innerText = "Ocorreu um erro ao confirmar. Tente novamente.";
             } finally {
-                btn.innerText = "Confirmar Presença";
-                btn.disabled = false;
+                btn.innerText = "Confirmar Presença"; btn.disabled = false;
             }
         });
     </script>
