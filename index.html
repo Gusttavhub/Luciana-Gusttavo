@@ -38,51 +38,6 @@
             border: 0;
         }
 
-        /* Barra de progresso geral da lista */
-        .bloco-progresso-global {
-            max-width: 720px;
-            margin: 0 auto 50px;
-            padding: 28px 24px;
-            background: #ffffff;
-            border: 1px solid #ebebeb;
-        }
-        .progresso-global-titulo {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: var(--texto-secundario);
-            margin-bottom: 14px;
-        }
-        .progresso-global-barra {
-            width: 100%;
-            height: 6px;
-            background: #ececec;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-        .progresso-global-fill {
-            height: 100%;
-            background: var(--texto-principal);
-            transition: width 1s ease;
-        }
-        .progresso-global-numeros {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 12px;
-            font-family: Georgia, 'Times New Roman', serif;
-            font-style: italic;
-            color: var(--texto-principal);
-            font-size: 1.1rem;
-        }
-        .progresso-global-percent {
-            text-align: right;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--texto-secundario);
-            margin-top: 6px;
-        }
-
         /* Reset e Estilos Globais */
         * {
             margin: 0;
@@ -149,24 +104,24 @@
         .mosaic-cell {
             position: relative;
             overflow: hidden;
-            background: #000;
+            background: #000000; /* Fundo preto garantido para a célula */
         }
 
-        /* Código para ocultar os dois mosaicos do meio */
-        .mosaic-cell:nth-child(6),
-        .mosaic-cell:nth-child(7) {
-            visibility: hidden;
+        /* Oculta as fotos das células centrais, revelando o fundo 100% preto */
+        .mosaic-cell:nth-child(6) img,
+        .mosaic-cell:nth-child(7) img {
+            display: none !important;
         }
 
-        /* Ajuste para esconder o meio também na versão de celular */
+        /* Ajuste do fundo preto central para o layout do celular */
         @media (max-width: 768px) {
-            .mosaic-cell:nth-child(6),
-            .mosaic-cell:nth-child(7) {
-                visibility: visible; 
+            .mosaic-cell:nth-child(6) img,
+            .mosaic-cell:nth-child(7) img {
+                display: block !important; 
             }
-            .mosaic-cell:nth-child(5),
-            .mosaic-cell:nth-child(6) {
-                visibility: hidden; 
+            .mosaic-cell:nth-child(5) img,
+            .mosaic-cell:nth-child(6) img {
+                display: none !important; 
             }
         }
 
@@ -202,12 +157,12 @@
 
         .hero h1 {
             font-family: var(--fonte-titulos);
-            font-size: clamp(2.5rem, 6.5vw, 4.2rem); /* Tamanho reduzido para melhor enquadramento */
-            font-weight: 200;
-            letter-spacing: 4px;
+            font-size: clamp(2rem, 5vw, 3.6rem); /* Tamanho ligeiramente diminuído para não sair do quadro */
+            font-weight: 400;
+            letter-spacing: 2px;
             margin-bottom: 10px;
             color: #ffffff;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.6); /* Sombra mais definida para legibilidade */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
         .hero .data {
@@ -657,30 +612,6 @@
             color: var(--branco-puro);
         }
 
-        /* Barra por card de presente */
-        .presente-barra-bg {
-            width: 100%;
-            height: 2px;
-            background: #ebebeb;
-            margin-top: 16px;
-        }
-
-        .presente-barra-fill {
-            height: 2px;
-            background: var(--texto-principal);
-            width: 0%;
-            transition: width 1s ease;
-        }
-
-        .presente-barra-label {
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--texto-secundario);
-            margin-top: 5px;
-            text-align: right;
-        }
-
         .presente-card.reservado {
             opacity: 0.5;
         }
@@ -1012,6 +943,7 @@
             <a href="#rsvp">Confirmação de Presença</a>
             <a href="#evento">O Evento</a>
             <a href="#presentes">Lista de Presentes</a>
+            <a href="admin.html">Gestão da noiva</a>
         </nav>
     </section>
 
@@ -1019,7 +951,7 @@
         <h2>Nossa História</h2>
         <div class="historia-texto">
             <p>Nossa história começou em 2021, de um jeito simples, quase como quem não imagina o tamanho do que está por vir… mas, desde o início, havia algo diferente. Algo leve, verdadeiro e, ao mesmo tempo, profundo. Era como se, mesmo sem dizer, nossos corações já soubessem: ali estava começando algo especial.</p>
-            <p>Com o passar dos dias, fomos descobrindo muito mais do que afinidades. Nossos princípios, nossos pensamentos, nossos sonhos… tudo parecia se encontro de forma tão natural. As pessoas ao nosso redor — amigos, família — percebiam aquilo que já sentíamos por dentro: éramos feitos para caminhar juntos.</p>
+            <p>Com o passar dos dias, fomos descobrindo muito mais do que afinidades. Nossos princípios, nossos pensamentos, nossos sonhos… tudo parecia se encontrar de forma tão natural. As pessoas ao nosso redor — amigos, família — percebiam aquilo que já sentíamos por dentro: éramos feitos para caminhar juntos.</p>
             <p>E assim seguimos. Sem grandes pausas, sem dúvidas que nos afastassem. Desde o começo, havia uma certeza silenciosa de que era "para sempre". E o tempo só confirmou aquilo que o coração já havia decidido.</p>
             <p>Os anos passaram, e o amor cresceu. Cresceu nos detalhes, nas escolhas diárias, no cuidado, na parceria e na construção de uma vida compartilhada. Cresceu firme, bonito e cheio de propósito.</p>
             <p>Até que chegou o momento de dar um passo ainda maior: decidimos nos unir em matrimônio, perante Deus e a lei dos homens. Não como um fim, mas como uma continuação — um novo capítulo de tudo aquilo que já vínhamos construindo.</p>
@@ -1106,27 +1038,21 @@
 
     <section id="presentes" class="fundo-cinza">
         <h2>Lista de Presentes</h2>
-        <p style="color: var(--texto-secundario); margin-bottom: 40px;">
+        <p style="color: var(--texto-secundario); margin-bottom: 10px;">
             Sua presença é o nosso maior presente. Mas se quiser nos presentear, ficamos felizes com qualquer escolha.
         </p>
+
+        <div style="color: var(--texto-secundario); font-size: 0.85rem; line-height: 1.8; margin-bottom: 50px;">
+            <strong style="color: var(--texto-principal);">Endereço para entrega dos presentes:</strong><br>
+            Avenida 03, quadra 20, lote 02 · Setor São Bento · Apt 206<br>
+            Mineiros — GO · CEP 75.832-066
+        </div>
 
         <div class="categorias-filtro" role="group" aria-label="Filtrar presentes por categoria">
             <button type="button" class="filtro-btn ativo" data-cat="todos" aria-pressed="true">Todos</button>
             <button type="button" class="filtro-btn" data-cat="eletro" aria-pressed="false">Eletrodomésticos</button>
             <button type="button" class="filtro-btn" data-cat="cozinha" aria-pressed="false">Cozinha & Mesa</button>
             <button type="button" class="filtro-btn" data-cat="casa" aria-pressed="false">Casa</button>
-        </div>
-
-        <div class="bloco-progresso-global" aria-live="polite">
-            <div class="progresso-global-titulo">Progresso geral da lista</div>
-            <div class="progresso-global-barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progresso-global-aria">
-                <div class="progresso-global-fill" id="progresso-global-fill" style="width:0%"></div>
-            </div>
-            <div class="progresso-global-numeros">
-                <span id="progresso-global-arrecadado">R$ 0</span>
-                <span id="progresso-global-meta">de R$ 0</span>
-            </div>
-            <div class="progresso-global-percent" id="progresso-global-percent">0% presenteado</div>
         </div>
 
         <div class="presentes-grid" id="presentes-grid">
@@ -1138,18 +1064,12 @@
 
     <section class="entrega-section">
         <div class="entrega-wrap">
-            <div class="entrega-titulo">Endereço para entrega dos presentes</div>
+            <div class="entrega-titulo">Endereço para entrega</div>
             <div class="entrega-local-nome">Luciana & Gusttavo</div>
             <div class="entrega-linha">Avenida 03, quadra 20, lote 02 · Setor São Bento · Apt 206</div>
             <div class="entrega-linha">Mineiros — GO  ·  CEP 75.832-066</div>
         </div>
     </section>
-
-    <footer style="text-align: center; padding: 40px 20px 20px; background-color: var(--branco-puro);">
-        <a href="admin.html" style="color: var(--texto-terciario); text-decoration: none; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
-            Acesso Restrito
-        </a>
-    </footer>
 
     <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-nome" aria-hidden="true">
         <div class="modal-box">
@@ -1160,11 +1080,6 @@
                 <div class="modal-nome" id="modal-nome"></div>
                 <div class="modal-descricao" id="modal-descricao"></div>
                 <div class="modal-valor" id="modal-valor"></div>
-
-                <div class="modal-barra-bg">
-                    <div class="modal-barra-fill" id="modal-barra-fill"></div>
-                </div>
-                <div class="modal-barra-label" id="modal-barra-label"></div>
 
                 <div class="modal-titulo-opcoes">Como deseja presentear?</div>
                 <div class="modal-opcoes">
@@ -1381,11 +1296,8 @@
                             <div class="presente-nome">${item.nome}</div>
                             <div class="presente-descricao">${item.descricao}</div>
                             <div class="presente-valor">R$ ${Number(item.valor).toLocaleString('pt-BR')}</div>
-                            <div class="presente-barra-bg">
-                                <div class="presente-barra-fill" style="width:0%"></div>
-                            </div>
-                            <div class="presente-barra-label">Disponível</div>
-                            <button class="presente-btn">Presentear</button>
+                            <div class="presente-status" style="margin-top: 10px; font-size: 0.75rem; color: var(--texto-secundario); font-weight: bold; text-align: center;"></div>
+                            <button class="presente-btn" style="margin-top: 15px;">Presentear</button>
                         </div>
                     `;
                     grid.appendChild(card);
@@ -1422,52 +1334,29 @@
                     totaisPorPresente[id] = (totaisPorPresente[id] || 0) + data.valorContribuido;
                 });
 
-                let metaTotal = 0;
-                let arrecadadoTotal = 0;
-
                 document.querySelectorAll('.presente-card').forEach(card => {
                     const id = card.dataset.id;
                     const valorTotalNecessario = parseFloat(card.dataset.valor);
                     const acumulado = totaisPorPresente[id] || 0;
-                    const valorContado = Math.min(acumulado, valorTotalNecessario);
-
-                    metaTotal += valorTotalNecessario;
-                    arrecadadoTotal += valorContado;
-
                     const percentual = Math.min((acumulado / valorTotalNecessario) * 100, 100);
 
-                    const barra = card.querySelector('.presente-barra-fill');
-                    const legenda = card.querySelector('.presente-barra-label');
+                    const statusLabel = card.querySelector('.presente-status');
+                    const btn = card.querySelector('.presente-btn');
 
-                    if (barra) barra.style.width = percentual + '%';
-                    if (legenda) {
-                        if (percentual >= 100) {
-                            legenda.innerText = "Presente Ganho! ✓";
-                            card.classList.add('reservado');
-                            const btn = card.querySelector('.presente-btn');
-                            if(btn) {
-                                btn.innerText = "Ganho! ✓";
-                                btn.classList.add('btn-reservado');
-                                btn.disabled = true;
-                            }
-                        } else {
-                            legenda.innerText = `R$ ${acumulado.toLocaleString('pt-BR')} arrecadados (${percentual.toFixed(0)}%)`;
+                    if (percentual >= 100) {
+                        if (statusLabel) statusLabel.innerText = "Presente Ganho! ✓";
+                        card.classList.add('reservado');
+                        if (btn) {
+                            btn.innerText = "Ganho! ✓";
+                            btn.classList.add('btn-reservado');
+                            btn.disabled = true;
                         }
+                    } else {
+                        // Não exibe o valor acumulado parcial para focar apenas em presentes completos
+                        if (statusLabel) statusLabel.innerText = "";
                     }
                 });
 
-                const pctGlobal = metaTotal > 0 ? Math.min((arrecadadoTotal / metaTotal) * 100, 100) : 0;
-                const arrEl = document.getElementById('progresso-global-arrecadado');
-                const metaEl = document.getElementById('progresso-global-meta');
-                const fillEl = document.getElementById('progresso-global-fill');
-                const pctEl  = document.getElementById('progresso-global-percent');
-                const ariaEl = document.getElementById('progresso-global-aria');
-                
-                if (arrEl)  arrEl.innerText  = 'R$ ' + Math.round(arrecadadoTotal).toLocaleString('pt-BR');
-                if (metaEl) metaEl.innerText = 'de R$ ' + Math.round(metaTotal).toLocaleString('pt-BR');
-                if (fillEl) fillEl.style.width = pctGlobal.toFixed(1) + '%';
-                if (pctEl)  pctEl.innerText = pctGlobal.toFixed(0) + '% presenteado';
-                if (ariaEl) ariaEl.setAttribute('aria-valuenow', pctGlobal.toFixed(0));
             } catch (e) {
                 console.warn("Erro ao carregar progresso:", e);
             }
