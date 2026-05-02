@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
     <title>Admin · Casamento Luciana &amp; Gusttavo</title>
+    <!-- Importando a biblioteca de gráficos (Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg: #fafafa;
-            --branco: #fff; 
+            --branco: #fff;
             --texto: #2c2c2c;
             --texto-sec: #6a6a6a;
             --borda: #e5e5e5;
@@ -73,13 +75,28 @@
 
         .resumo {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px; margin-bottom: 28px;
+            gap: 14px; margin-bottom: 20px;
         }
         .resumo-card {
-            background: var(--branco); padding: 18px; border: 1px solid var(--borda);
+            background: var(--branco); padding: 18px; border: 1px solid var(--borda); border-radius: 4px;
         }
         .resumo-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--texto-sec); }
         .resumo-valor { font-size: 1.7rem; font-weight: 200; margin-top: 6px; }
+
+        /* Estilos do Dashboard de Gráficos */
+        .dashboard-charts {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 14px; margin-bottom: 28px;
+        }
+        .chart-card {
+            background: var(--branco); padding: 20px; border: 1px solid var(--borda); border-radius: 4px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px;
+        }
+        .chart-card h3 {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--texto-sec); margin-bottom: 15px; width: 100%; text-align: center;
+        }
+        .chart-wrapper { position: relative; width: 100%; height: 100%; }
 
         table {
             width: 100%; border-collapse: collapse; background: var(--branco);
@@ -100,11 +117,12 @@
         .acoes button {
             margin-right: 6px; padding: 5px 11px;
             font-family: inherit; font-size: 0.75rem; cursor: pointer;
-            border: 1px solid var(--borda); background: white;
+            border: 1px solid var(--borda); background: white; border-radius: 3px;
         }
         .acoes button.aprovar:hover  { border-color: var(--verde);   color: var(--verde); }
         .acoes button.invalidar:hover{ border-color: var(--vermelho);color: var(--vermelho); }
         .acoes button.excluir:hover  { border-color: var(--vermelho);color: var(--vermelho); }
+        .acoes button.editar-cat:hover { border-color: var(--azul); color: var(--azul); }
 
         .vazio { padding: 40px; text-align: center; color: var(--texto-sec); }
         .loading { padding: 40px; text-align: center; color: var(--texto-sec); }
@@ -112,9 +130,12 @@
         .filtros { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
         .filtros button {
             padding: 6px 14px; background: white; border: 1px solid var(--borda);
-            cursor: pointer; font-size: 0.78rem;
+            cursor: pointer; font-size: 0.78rem; border-radius: 3px;
         }
         .filtros button.ativo { background: var(--texto); color: white; border-color: var(--texto); }
+
+        /* Formulário no modo edição */
+        .form-editando { border-left: 4px solid var(--azul); padding-left: 14px; }
 
         @media (max-width: 700px) {
             table { font-size: 0.78rem; }
@@ -148,24 +169,42 @@
 
         <main>
             <div class="tabs">
-                <button class="tab-btn ativo" data-tab="presentes">Contribuições</button>
+                <button class="tab-btn ativo" data-tab="presentes">Contribuições & Dashboard</button>
                 <button class="tab-btn" data-tab="catalogo">Catálogo de Presentes</button>
                 <button class="tab-btn" data-tab="convidados">RSVP</button>
             </div>
 
+            <!-- Aba de Contribuições (PIX/Loja) -->
             <section id="tab-presentes">
+                
                 <div class="resumo">
                     <div class="resumo-card">
                         <div class="resumo-label">Total Aprovado</div>
                         <div class="resumo-valor" id="r-aprovado">R$ 0</div>
                     </div>
                     <div class="resumo-card">
-                        <div class="resumo-label">Aguardando</div>
+                        <div class="resumo-label">Aguardando Aprovação</div>
                         <div class="resumo-valor" id="r-aguardando">R$ 0</div>
                     </div>
                     <div class="resumo-card">
-                        <div class="resumo-label">Contribuições</div>
+                        <div class="resumo-label">Contribuições Feitas</div>
                         <div class="resumo-valor" id="r-contagem">0</div>
+                    </div>
+                </div>
+
+                <!-- DASHBOARD DE GRÁFICOS -->
+                <div class="dashboard-charts">
+                    <div class="chart-card">
+                        <h3>Arrecadação por Método</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="chartMetodo"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Ranking: Top 5 Presentes</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="chartTop"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -181,27 +220,32 @@
                 </div>
             </section>
 
+            <!-- Aba de Catálogo (Gerenciar o site) -->
             <section id="tab-catalogo" style="display:none;">
                 <div class="resumo-card" style="margin-bottom: 20px;">
-                    <h3 style="margin-bottom:15px; font-weight:400;">Adicionar Novo Presente ao Site</h3>
+                    <h3 id="form-catalogo-titulo" style="margin-bottom:15px; font-weight:400; color: var(--texto);">Adicionar Novo Presente ao Site</h3>
                     <form id="form-add-presente" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                        <input type="text" id="cat-nome" placeholder="Nome (ex: Geladeira Inverse)" required style="padding:10px; border:1px solid var(--borda);">
-                        <select id="cat-cat" required style="padding:10px; border:1px solid var(--borda);">
+                        <input type="text" id="cat-nome" placeholder="Nome (ex: Geladeira Inverse)" required style="padding:10px; border:1px solid var(--borda); font-family: inherit;">
+                        <select id="cat-cat" required style="padding:10px; border:1px solid var(--borda); font-family: inherit;">
                             <option value="eletro">Eletrodomésticos</option>
                             <option value="cozinha">Cozinha & Mesa</option>
                             <option value="casa">Casa</option>
                         </select>
-                        <input type="number" id="cat-valor" placeholder="Valor total (R$)" required style="padding:10px; border:1px solid var(--borda);">
-                        <input type="text" id="cat-desc" placeholder="Descrição rápida (ex: Inox 400L)" required style="padding:10px; border:1px solid var(--borda);">
-                        <input type="url" id="cat-img" placeholder="Link da Imagem (URL)" required style="padding:10px; border:1px solid var(--borda); grid-column: 1 / -1;">
-                        <input type="url" id="cat-loja" placeholder="Link da Loja (Opcional)" style="padding:10px; border:1px solid var(--borda); grid-column: 1 / -1;">
-                        <button type="submit" style="grid-column: 1 / -1; padding:12px; background:var(--texto); color:white; border:none; cursor:pointer; text-transform:uppercase; letter-spacing:1px;">Salvar no Site</button>
+                        <input type="number" id="cat-valor" placeholder="Valor total (R$)" required style="padding:10px; border:1px solid var(--borda); font-family: inherit;">
+                        <input type="text" id="cat-desc" placeholder="Descrição rápida (ex: Inox 400L)" required style="padding:10px; border:1px solid var(--borda); font-family: inherit;">
+                        <input type="url" id="cat-img" placeholder="Link da Imagem (URL)" required style="padding:10px; border:1px solid var(--borda); grid-column: 1 / -1; font-family: inherit;">
+                        <input type="url" id="cat-loja" placeholder="Link da Loja (Opcional)" style="padding:10px; border:1px solid var(--borda); grid-column: 1 / -1; font-family: inherit;">
+                        
+                        <div style="grid-column: 1 / -1; display: flex; gap: 10px;">
+                            <button type="submit" id="btn-salvar-catalogo" style="padding:12px; background:var(--texto); color:white; border:none; cursor:pointer; text-transform:uppercase; letter-spacing:1px; flex: 2; border-radius: 3px;">Salvar no Site</button>
+                            <button type="button" id="btn-cancelar-edicao" style="display:none; padding:12px; background:var(--vermelho); color:white; border:none; cursor:pointer; text-transform:uppercase; letter-spacing:1px; flex: 1; border-radius: 3px;">Cancelar Edição</button>
+                        </div>
                     </form>
                 </div>
 
-                <div id="btn-import-wrapper" style="display:none; margin-bottom:20px; text-align:center; padding: 20px; background: #e6f5ec; border: 1px solid var(--verde);">
+                <div id="btn-import-wrapper" style="display:none; margin-bottom:20px; text-align:center; padding: 20px; background: #e6f5ec; border: 1px solid var(--verde); border-radius: 4px;">
                     <p style="margin-bottom: 10px; color: var(--verde);">O seu catálogo do site está vazio. Deseja importar a lista original de 25 presentes?</p>
-                    <button id="btn-importar-padrao" style="padding:10px 20px; background:var(--verde); color:white; border:none; cursor:pointer; font-weight:bold;">Importar 25 Presentes Originais</button>
+                    <button id="btn-importar-padrao" style="padding:10px 20px; background:var(--verde); color:white; border:none; cursor:pointer; font-weight:bold; border-radius: 3px;">Importar 25 Presentes Originais</button>
                 </div>
 
                 <div id="catalogo-container">
@@ -209,14 +253,15 @@
                 </div>
             </section>
 
+            <!-- Aba de RSVP -->
             <section id="tab-convidados" style="display:none;">
                 <div class="resumo">
                     <div class="resumo-card">
-                        <div class="resumo-label">Confirmados</div>
+                        <div class="resumo-label">Confirmados (Total)</div>
                         <div class="resumo-valor" id="r-conv-total">0</div>
                     </div>
                     <div class="resumo-card">
-                        <div class="resumo-label">Famílias</div>
+                        <div class="resumo-label">Famílias Registradas</div>
                         <div class="resumo-valor" id="r-conv-familias">0</div>
                     </div>
                 </div>
@@ -252,6 +297,12 @@
             try { return new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }); }
             catch { return iso; }
         };
+
+        // Váriaveis Globais para Gráficos e Edição
+        let chartMetodoInst = null;
+        let chartTopInst = null;
+        let editandoId = null;
+        let catalogoCache = [];
 
         // Lista backup para primeira importação
         const presentesOriginais = [
@@ -329,7 +380,7 @@
             });
         });
 
-        // ================= ABA: CONTRIBUIÇÕES (PIX/LOJA) =================
+        // ================= ABA: CONTRIBUIÇÕES & DASHBOARD =================
         let contribuicoesCache = [];
         let filtroStatus = 'todos';
 
@@ -356,12 +407,79 @@
             }
         }
 
+        // Função para Renderizar os Gráficos do Dashboard
+        function renderDashboard(listaGlobal) {
+            // Conta os valores que não foram invalidados para ter a métrica real do que entrou
+            const validos = listaGlobal.filter(c => c.statusValidacao !== 'invalido');
+
+            // 1. Lógica para Gráfico de Pizza (PIX x Loja)
+            let totalPix = 0;
+            let totalLoja = 0;
+            validos.forEach(c => {
+                if (c.metodo === 'pix') totalPix += Number(c.valorContribuido || 0);
+                if (c.metodo === 'loja') totalLoja += Number(c.valorContribuido || 0);
+            });
+
+            const ctxMetodo = document.getElementById('chartMetodo').getContext('2d');
+            if (chartMetodoInst) chartMetodoInst.destroy(); // Apaga o gráfico antigo se houver atualização
+            
+            chartMetodoInst = new Chart(ctxMetodo, {
+                type: 'doughnut',
+                data: {
+                    labels: ['PIX', 'Loja Virtual'],
+                    datasets: [{
+                        data: [totalPix, totalLoja],
+                        backgroundColor: ['#2c2c2c', '#8a8a8a'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, cutout: '70%',
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // 2. Lógica para o Ranking de Top 5 Presentes
+            const presentesMap = {};
+            validos.forEach(c => {
+                const nome = c.presenteNome || 'Desconhecido';
+                presentesMap[nome] = (presentesMap[nome] || 0) + Number(c.valorContribuido || 0);
+            });
+            
+            const topPresentes = Object.entries(presentesMap)
+                .sort((a,b) => b[1] - a[1]) // Ordena do maior pro menor
+                .slice(0, 5); // Pega só os 5 primeiros
+
+            const ctxTop = document.getElementById('chartTop').getContext('2d');
+            if (chartTopInst) chartTopInst.destroy();
+            
+            chartTopInst = new Chart(ctxTop, {
+                type: 'bar',
+                data: {
+                    // Corta o nome do presente se for muito longo pra caber no gráfico
+                    labels: topPresentes.map(p => p[0].length > 18 ? p[0].substring(0,18)+'...' : p[0]),
+                    datasets: [{
+                        label: 'Valor Arrecadado (R$)',
+                        data: topPresentes.map(p => p[1]),
+                        backgroundColor: '#2c2c2c',
+                        borderRadius: 3
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
         function renderPresentes() {
             const cont = document.getElementById('presentes-container');
-            const lista = filtroStatus === 'todos'
+            const listaFiltrada = filtroStatus === 'todos'
                 ? contribuicoesCache
                 : contribuicoesCache.filter(c => (c.statusValidacao || 'aguardando_confirmacao_noiva') === filtroStatus);
 
+            // Calcula Totais dos Cartões Resumo
             let aprovado = 0, aguardando = 0;
             contribuicoesCache.forEach(c => {
                 const s = c.statusValidacao || 'aguardando_confirmacao_noiva';
@@ -372,12 +490,15 @@
             document.getElementById('r-aguardando').textContent = fmtBRL(aguardando);
             document.getElementById('r-contagem').textContent   = contribuicoesCache.length;
 
-            if (!lista.length) {
+            // Renderiza os Gráficos baseados em TODA a lista de contribuições
+            renderDashboard(contribuicoesCache);
+
+            if (!listaFiltrada.length) {
                 cont.innerHTML = '<div class="vazio">Nenhuma contribuição neste filtro.</div>';
                 return;
             }
 
-            const linhas = lista.map(c => {
+            const linhas = listaFiltrada.map(c => {
                 const status = c.statusValidacao || 'aguardando_confirmacao_noiva';
                 const statusLabel = status === 'aprovado' ? 'Aprovado' : status === 'invalido' ? 'Invalidado' : 'Aguardando';
                 const statusClass = status === 'aprovado' ? 'aprovado' : status === 'invalido' ? 'invalido' : 'aguardando';
@@ -442,19 +563,20 @@
                 
                 document.getElementById('btn-import-wrapper').style.display = 'none';
 
-                const lista = [];
-                snap.forEach(d => lista.push({ id: d.id, ...d.data() }));
+                catalogoCache = [];
+                snap.forEach(d => catalogoCache.push({ id: d.id, ...d.data() }));
 
                 const catLabels = { 'eletro': 'Eletrodomésticos', 'cozinha': 'Cozinha & Mesa', 'casa': 'Casa' };
 
-                const linhas = lista.map(c => `
+                const linhas = catalogoCache.map(c => `
                     <tr>
                         <td><img src="${c.img}" width="40" height="40" style="object-fit:contain; border-radius:4px; border:1px solid #ddd; background:#fff;"></td>
                         <td><strong>${escapeHtml(c.nome)}</strong><br><span style="font-size:0.7rem; color:var(--texto-sec);">${escapeHtml(c.descricao)}</span></td>
                         <td>${catLabels[c.categoria] || c.categoria}</td>
                         <td>${fmtBRL(c.valor)}</td>
                         <td class="acoes">
-                            <button class="excluir" data-id="${c.id}" data-acao="excluir-cat">Remover do Site</button>
+                            <button class="editar-cat" data-id="${c.id}">Editar</button>
+                            <button class="excluir" data-id="${c.id}" data-acao="excluir-cat">Remover</button>
                         </td>
                     </tr>
                 `).join('');
@@ -468,6 +590,32 @@
                     </table>
                 `;
 
+                // Botão de Editar
+                cont.querySelectorAll('button.editar-cat').forEach(b => {
+                    b.addEventListener('click', () => {
+                        const item = catalogoCache.find(x => x.id === b.dataset.id);
+                        if (item) {
+                            editandoId = item.id;
+                            
+                            document.getElementById('form-add-presente').classList.add('form-editando');
+                            document.getElementById('form-catalogo-titulo').innerHTML = '✏️ Editando: <strong style="color:var(--azul);">' + escapeHtml(item.nome) + '</strong>';
+                            
+                            document.getElementById('cat-nome').value = item.nome;
+                            document.getElementById('cat-cat').value = item.categoria;
+                            document.getElementById('cat-valor').value = item.valor;
+                            document.getElementById('cat-desc').value = item.descricao;
+                            document.getElementById('cat-img').value = item.img;
+                            document.getElementById('cat-loja').value = item.loja || '';
+
+                            document.getElementById('btn-salvar-catalogo').innerText = 'Salvar Alterações';
+                            document.getElementById('btn-cancelar-edicao').style.display = 'block';
+                            
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    });
+                });
+
+                // Botão de Excluir
                 cont.querySelectorAll('button[data-acao="excluir-cat"]').forEach(b => {
                     b.addEventListener('click', async () => {
                         if(!confirm('Deseja retirar este item do site?\n\n(As contribuições já recebidas continuam salvas no painel)')) return;
@@ -482,6 +630,16 @@
                 cont.innerHTML = `<div class="vazio">Erro: ${e.message}</div>`;
             }
         }
+
+        // Cancelar a edição e voltar pro modo Inserção
+        document.getElementById('btn-cancelar-edicao').addEventListener('click', () => {
+            editandoId = null;
+            document.getElementById('form-add-presente').reset();
+            document.getElementById('form-add-presente').classList.remove('form-editando');
+            document.getElementById('form-catalogo-titulo').innerText = 'Adicionar Novo Presente ao Site';
+            document.getElementById('btn-salvar-catalogo').innerText = 'Salvar no Site';
+            document.getElementById('btn-cancelar-edicao').style.display = 'none';
+        });
 
         // Importação Inicial (25 presentes)
         document.getElementById('btn-importar-padrao').addEventListener('click', async (e) => {
@@ -506,14 +664,14 @@
             }
         });
 
-        // Adicionar Novo Presente
+        // Adicionar ou Editar Presente
         document.getElementById('form-add-presente').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
+            const btn = document.getElementById('btn-salvar-catalogo');
             btn.innerText = 'Salvando...';
             btn.disabled = true;
 
-            const novo = {
+            const dados = {
                 nome: document.getElementById('cat-nome').value.trim(),
                 categoria: document.getElementById('cat-cat').value,
                 valor: parseFloat(document.getElementById('cat-valor').value),
@@ -523,15 +681,23 @@
             };
 
             try {
-                // Adiciona um doc novo gerando ID aleatório
-                await addDoc(collection(db, "presentes_catalogo"), novo);
-                e.target.reset();
-                alert('Presente adicionado com sucesso!');
+                if (editandoId) {
+                    // Modo Edição: Atualiza o item existente
+                    await updateDoc(doc(db, "presentes_catalogo", editandoId), dados);
+                    alert('Presente atualizado com sucesso!');
+                    document.getElementById('btn-cancelar-edicao').click(); // Reseta o form para "Adicionar"
+                } else {
+                    // Modo Inserção: Cria um novo
+                    await addDoc(collection(db, "presentes_catalogo"), dados);
+                    e.target.reset();
+                    alert('Presente adicionado com sucesso!');
+                }
+                
                 await carregarCatalogo();
             } catch (err) {
                 alert('Erro ao salvar: ' + err.message);
             } finally {
-                btn.innerText = 'Salvar no Site';
+                if (!editandoId) btn.innerText = 'Salvar no Site';
                 btn.disabled = false;
             }
         });
