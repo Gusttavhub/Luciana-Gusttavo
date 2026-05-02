@@ -162,7 +162,7 @@
             letter-spacing: 2px;
             margin-bottom: 10px;
             color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3); /* Sombra extremamente sutil para legibilidade */
         }
 
         .hero .data {
@@ -623,6 +623,23 @@
             pointer-events: none;
         }
 
+        /* Barra por card de presente */
+        .presente-barra-bg {
+            width: 100%;
+            height: 4px;
+            background: #ebebeb;
+            margin-top: 10px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .presente-barra-fill {
+            height: 100%;
+            background: var(--texto-principal);
+            width: 0%;
+            transition: width 1s ease;
+        }
+
         /* Imagem do card */
         .presente-img {
             width: 100%;
@@ -641,42 +658,6 @@
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-        }
-
-        /* Endereço de entrega */
-        .entrega-section {
-            padding: 80px 20px;
-            background: var(--branco-puro);
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .entrega-wrap {
-            text-align: center;
-        }
-
-        .entrega-titulo {
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--texto-secundario);
-            margin-bottom: 18px;
-        }
-
-        .entrega-local-nome {
-            font-family: Georgia, 'Times New Roman', serif;
-            font-size: clamp(1.4rem, 3vw, 2rem);
-            font-style: italic;
-            font-weight: 400;
-            color: var(--texto-principal);
-            letter-spacing: 1px;
-            margin-bottom: 14px;
-        }
-
-        .entrega-linha {
-            font-size: 0.85rem;
-            color: var(--texto-secundario);
-            letter-spacing: 1px;
-            line-height: 2;
         }
 
         /* Modal de pagamento */
@@ -976,7 +957,7 @@
             <div class="legenda-convidados">presenças confirmadas</div>
         </div>
 
-        <form id="form-rsvp" aria-label="Formulário de confirmação de presença" style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+        <form id="form-rsvp" aria-label="Formulário de confirmation de presence" style="max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
             <label for="nomeConvidado" class="sr-only">Seu nome completo</label>
             <input type="text" id="nomeConvidado" name="nomeConvidado" autocomplete="name"
                    placeholder="Seu Nome Completo" required aria-required="true" minlength="3">
@@ -1038,7 +1019,7 @@
 
     <section id="presentes" class="fundo-cinza">
         <h2>Lista de Presentes</h2>
-        <p style="color: var(--texto-secundario); margin-bottom: 10px;">
+        <p style="color: var(--texto-secundario); margin-bottom: 50px;">
             Sua presença é o nosso maior presente. Mas se quiser nos presentear, ficamos felizes com qualquer escolha.
         </p>
 
@@ -1055,19 +1036,11 @@
             <button type="button" class="filtro-btn" data-cat="casa" aria-pressed="false">Casa</button>
         </div>
 
+        <!-- Os presentes serão carregados pelo Javascript aqui -->
         <div class="presentes-grid" id="presentes-grid">
             <div style="grid-column: 1/-1; text-align:center; color: var(--texto-secundario); padding: 40px;">
                 Carregando lista de presentes...
             </div>
-        </div>
-    </section>
-
-    <section class="entrega-section">
-        <div class="entrega-wrap">
-            <div class="entrega-titulo">Endereço para entrega</div>
-            <div class="entrega-local-nome">Luciana & Gusttavo</div>
-            <div class="entrega-linha">Avenida 03, quadra 20, lote 02 · Setor São Bento · Apt 206</div>
-            <div class="entrega-linha">Mineiros — GO  ·  CEP 75.832-066</div>
         </div>
     </section>
 
@@ -1150,6 +1123,7 @@
         </div>
     </div>
 
+    <!-- Scripts de Filtro e Relógio -->
     <script>
         document.querySelectorAll('.filtro-btn').forEach(btn => {
             btn.addEventListener('click', function () {
@@ -1207,6 +1181,7 @@
         }, 1000);
     </script>
 
+    <!-- Scripts de Firebase e Motor Principal -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
@@ -1296,6 +1271,9 @@
                             <div class="presente-nome">${item.nome}</div>
                             <div class="presente-descricao">${item.descricao}</div>
                             <div class="presente-valor">R$ ${Number(item.valor).toLocaleString('pt-BR')}</div>
+                            <div class="presente-barra-bg">
+                                <div class="presente-barra-fill" style="width:0%"></div>
+                            </div>
                             <div class="presente-status" style="margin-top: 10px; font-size: 0.75rem; color: var(--texto-secundario); font-weight: bold; text-align: center;"></div>
                             <button class="presente-btn" style="margin-top: 15px;">Presentear</button>
                         </div>
@@ -1342,6 +1320,11 @@
 
                     const statusLabel = card.querySelector('.presente-status');
                     const btn = card.querySelector('.presente-btn');
+                    const barraFill = card.querySelector('.presente-barra-fill');
+
+                    if (barraFill) {
+                        barraFill.style.width = percentual + '%';
+                    }
 
                     if (percentual >= 100) {
                         if (statusLabel) statusLabel.innerText = "Presente Ganho! ✓";
@@ -1351,9 +1334,10 @@
                             btn.classList.add('btn-reservado');
                             btn.disabled = true;
                         }
+                    } else if (acumulado > 0) {
+                        if (statusLabel) statusLabel.innerText = `R$ ${acumulado.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})} arrecadados (${percentual.toFixed(0)}%)`;
                     } else {
-                        // Não exibe o valor acumulado parcial para focar apenas em presentes completos
-                        if (statusLabel) statusLabel.innerText = "";
+                        if (statusLabel) statusLabel.innerText = "Disponível";
                     }
                 });
 
