@@ -192,7 +192,7 @@
                     </div>
                 </div>
 
-                <!-- DASHBOARD DE GRÁFICOS -->
+                <!-- DASHBOARD DE GRÁFICOS DAS CONTRIBUIÇÕES -->
                 <div class="dashboard-charts">
                     <div class="chart-card">
                         <h3>Arrecadação por Método</h3>
@@ -222,6 +222,17 @@
 
             <!-- Aba de Catálogo (Gerenciar o site) -->
             <section id="tab-catalogo" style="display:none;">
+
+                <!-- DASHBOARD DO CATÁLOGO DE PRESENTES -->
+                <div class="dashboard-charts" id="dashboard-catalogo-container" style="display:none; margin-bottom: 20px;">
+                    <div class="chart-card" style="width: 100%;">
+                        <h3>Somatório do Valor (R$) por Categoria de Presente</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="chartCatalogo"></canvas>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="resumo-card" style="margin-bottom: 20px;">
                     <h3 id="form-catalogo-titulo" style="margin-bottom:15px; font-weight:400; color: var(--texto);">Adicionar Novo Presente ao Site</h3>
                     <form id="form-add-presente" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
@@ -298,9 +309,10 @@
             catch { return iso; }
         };
 
-        // Váriaveis Globais para Gráficos e Edição
+        // Variáveis Globais para Gráficos e Edição
         let chartMetodoInst = null;
         let chartTopInst = null;
+        let chartCatalogoInst = null;
         let editandoId = null;
         let catalogoCache = [];
 
@@ -407,7 +419,7 @@
             }
         }
 
-        // Função para Renderizar os Gráficos do Dashboard
+        // Função para Renderizar os Gráficos de Contribuição
         function renderDashboard(listaGlobal) {
             // Conta os valores que não foram invalidados para ter a métrica real do que entrou
             const validos = listaGlobal.filter(c => c.statusValidacao !== 'invalido');
@@ -421,7 +433,7 @@
             });
 
             const ctxMetodo = document.getElementById('chartMetodo').getContext('2d');
-            if (chartMetodoInst) chartMetodoInst.destroy(); // Apaga o gráfico antigo se houver atualização
+            if (chartMetodoInst) chartMetodoInst.destroy();
             
             chartMetodoInst = new Chart(ctxMetodo, {
                 type: 'doughnut',
@@ -456,7 +468,6 @@
             chartTopInst = new Chart(ctxTop, {
                 type: 'bar',
                 data: {
-                    // Corta o nome do presente se for muito longo pra caber no gráfico
                     labels: topPresentes.map(p => p[0].length > 18 ? p[0].substring(0,18)+'...' : p[0]),
                     datasets: [{
                         label: 'Valor Arrecadado (R$)',
@@ -549,22 +560,66 @@
         }
 
         // ================= ABA: CATÁLOGO DE PRESENTES =================
+
+        // Função para Renderizar o Gráfico de Barras do Catálogo
+        function renderCatalogoDashboard(lista) {
+            const catLabels = { 'eletro': 'Eletrodomésticos', 'cozinha': 'Cozinha & Mesa', 'casa': 'Casa' };
+            const totais = {};
+            
+            lista.forEach(c => {
+                const cat = catLabels[c.categoria] || c.categoria;
+                totais[cat] = (totais[cat] || 0) + Number(c.valor || 0);
+            });
+
+            const labels = Object.keys(totais);
+            const data = Object.values(totais);
+
+            const ctx = document.getElementById('chartCatalogo').getContext('2d');
+            if (chartCatalogoInst) chartCatalogoInst.destroy();
+
+            chartCatalogoInst = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Valor Total (R$)',
+                        data: data,
+                        backgroundColor: '#2c2c2c',
+                        borderRadius: 3
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+        }
+
         async function carregarCatalogo() {
             const cont = document.getElementById('catalogo-container');
+            const importWrapper = document.getElementById('btn-import-wrapper');
+            const dashCatalogo = document.getElementById('dashboard-catalogo-container');
+
             cont.innerHTML = '<div class="loading">Carregando catálogo...</div>';
             try {
                 const snap = await getDocs(collection(db, "presentes_catalogo"));
                 
                 if (snap.empty) {
-                    document.getElementById('btn-import-wrapper').style.display = 'block';
+                    importWrapper.style.display = 'block';
+                    dashCatalogo.style.display = 'none';
                     cont.innerHTML = '';
                     return;
                 }
                 
-                document.getElementById('btn-import-wrapper').style.display = 'none';
+                importWrapper.style.display = 'none';
+                dashCatalogo.style.display = 'grid'; // Exibe a área do gráfico de catálogo
 
                 catalogoCache = [];
                 snap.forEach(d => catalogoCache.push({ id: d.id, ...d.data() }));
+
+                // Atualiza o gráfico de barras com os valores separados por categoria
+                renderCatalogoDashboard(catalogoCache);
 
                 const catLabels = { 'eletro': 'Eletrodomésticos', 'cozinha': 'Cozinha & Mesa', 'casa': 'Casa' };
 
